@@ -1,0 +1,59 @@
+# Workflow aliases
+
+# NVIM
+alias vd="nvim ."
+alias v.="nvim ."
+alias vd.="nvim ."
+alias v="nvim"
+alias vi="nvim"
+alias ci="nvim"
+alias vim="nvim"
+
+# Tmux
+alias t="tmux"
+
+# Directories & Navigation
+alias gnvc="cd ~/.config/nvim"
+alias cdu="cd .."
+
+# Editing
+alias edrc="vim ~/.zsh_profile; exec zsh"
+alias edvrc="vim ~/.config/nvim/init.vim"
+alias edt="vim ~/.tmux.conf"
+alias edvp="vim ~/.config/nvim/lua/plugins.lua"
+alias edi="vim ~/personal-dev/investigate-next"
+
+# Core Utils
+alias ls="exa -lah"
+alias l="exa -lah"
+alias lsg="exa -lah --git"
+
+# Tmux
+alias tm="tmux"
+alias tml="tmux -L"
+
+# Meta
+alias mgs="meta git status"
+alias mgb2r="meta exec \" git branch --v | awk '/\[gone\]/ {print \$1}' \" " # shows branches that will be removed by gbr
+
+# Cargo
+alias c="cargo"
+alias ccl="cargo clippy"
+alias cu="cargo update"
+alias ct="cargo test"
+
+# Git
+alias g="git"
+alias gs="git status"
+alias gcm="git commit -m"
+alias gp="git_push_account_for_tracking"
+alias gfp="git fetch --prune"
+alias gb2r="git branch --v | awk '/\[gone\]/ {print \$1}' "
+alias gbr="git branch --v | awk '/\[gone\]/ {print \$1}' | xargs git branch -D"
+alias gau="git add -u"
+alias gb="git branch --v"
+
+# GitHub CLI
+alias ghpr='gh pr create --base main --reviewer $DEFAULT_REVIEWER --title "$(git branch --show-current): $(get_jira_issue_summary)" --body '
+alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(get_jira_issue_summary)" --draft --body '
+

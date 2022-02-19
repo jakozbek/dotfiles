@@ -1,0 +1,19 @@
+# Functions
+git_push_account_for_tracking = function() {
+    tracking=$(git status -sb | grep origin/)
+    
+    if [[ $tracking = "" ]]; then
+        git push -u origin $(git branch --show-current)
+    else
+        git push
+    fi
+}
+
+get_jira_issue_summary = function() {
+    jira issue list --plain --columns key,summary > temp_jira_issues;
+
+    echo $(cat temp_jira_issues | rg $(git branch --show-current) | cut -f2)
+
+    rm temp_jira_issues
+}
+
