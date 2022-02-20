@@ -36,13 +36,16 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 let g:ale_disable_lsp = 1
 
 " packer
+" TODO: set up packer bootstrapping
 lua require('plugins')
 
-" TODO: review packer use
 augroup packer_user_config
   autocmd!
   autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 augroup end
+
+" Init Lua Scripts for Further Plugin config
+lua require('lsp-config')
 
 " Gruvbox Theme: must happen after packer initialization
 set background=dark
@@ -54,15 +57,6 @@ autocmd vimenter * ++nested colorscheme gruvbox
 vmap <C-_> <plug>NERDCommenterToggle
 nmap <C-_> <plug>NERDCommenterToggle
 imap <C-_> <plug>NERDCommenterInsert
-
-" Additional Plugin Config
-source $HOME/.config/nvim/vim-configs/coc.vim
-
-" Rust
-" TODO: move this to coc-config
-" TODO: stop using coc possibly
-let g:rustfmt_autosave = 1
-nnoremap <leader>k :TagbarToggle<CR>
 
 " Minimap
 " TODO: possibly remove
@@ -96,3 +90,4 @@ set signcolumn=yes
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+

@@ -1,25 +1,47 @@
-return require('packer').startup(function()
+return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
 
+    -- TODO: completely remove, keep now for comparison testing
     -- Completion of Code
-    use { 'neoclide/coc.nvim', branch = 'release' }
+    --use { 'neoclide/coc.nvim', branch = 'release' }
+
+    -- NVIM LSP Config
+    use 'neovim/nvim-lspconfig'
+    use 'nvim-lua/lsp-status.nvim' -- Statusline for lsp
+
+    -- Autocompletion for LSP
+    use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+    use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+    use 'L3MON4D3/LuaSnip' -- Snippets plugin
+
+    -- Rust Additional Tools For LSP --
+    use 'simrat39/rust-tools.nvim'
+
+    -- Crates
+    use {
+        'saecki/crates.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+        config = function()
+            require('crates').setup()
+        end,
+    }
+
+    -- Debugging
+    use 'nvim-lua/plenary.nvim'
+    use 'mfussenegger/nvim-dap'
 
     -- TODO: am I using?
-    -- vim-tmux-navigator
     use 'christoomey/vim-tmux-navigator'
 
     -- Like VSCODE
     -- NERD Tree
     use 'ryanoasis/vim-devicons'
-    use {
-        'Xuyuanp/nerdtree-git-plugin',
-        requires = { {'preservim/nerdtree'} }
-    }
+
     -- Commenting like vscode
     use 'preservim/nerdcommenter'
-    -- sidebar code minimap
-    use 'wfxr/minimap.vim'
 
+    -- TODO: switch with nvim native gitsigns
     -- Potentially has performance issues
     use 'airblade/vim-gitgutter'
 
@@ -45,6 +67,7 @@ return require('packer').startup(function()
         end
     }
 
+    --TODO: test this out
     use {
         'ThePrimeagen/harpoon',
         requires = { {'nvim-lua/plenary.nvim'} }
@@ -60,12 +83,6 @@ return require('packer').startup(function()
 
     use 'vim-airline/vim-airline'
     use 'vim-airline/vim-airline-themes'
-
-    -- Rust
-    use 'rust-lang/rust.vim'
-    -- TODO: don't use tagbar and ALE
-    use 'preservim/tagbar'
-    use 'dense-analysis/ale'
 
     -- Theme
     use 'morhetz/gruvbox'
