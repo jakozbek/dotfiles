@@ -120,22 +120,34 @@ lsp_installer.settings({
 })
 
 lsp_installer.on_server_ready(function(server)
- if server.name == "sumneko_lua" then
-     opts = {
-        settings = {
-            Lua = {
-                diagnostics = {
-                    globals = { 'vim' }
+    if server.name ~= "rust_analyzer" then
+        local opts = {}
+
+        -- Lua
+        if server.name == "sumneko_lua" then
+            opts = {
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { 'vim' }
+                        }
+                    }
                 }
             }
+        end
+
+        server:setup(opts)
+    else
+        -- Initialize the LSP via rust-tools instead
+        require("rust-tools").setup {
+            -- The "server" property provided in rust-tools setup function are the
+            -- settings rust-tools will provide to lspconfig during init.
+            -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
+            -- with the user's own settings (opts).
+            server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
         }
-     }
- end
-     server:setup(opts)
+        server:attach_buffers()
+    end
+
 end)
-
-
-
--- Rust Analyzer
-require('rust-tools').setup({})
 

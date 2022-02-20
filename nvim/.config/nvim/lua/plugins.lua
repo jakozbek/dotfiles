@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
 
     -- LSP Installer --
-    use 'willimboman/nvim-lsp-installer'
+    use 'williamboman/nvim-lsp-installer'
 
     -- Rust Additional Tools For LSP --
     use 'simrat39/rust-tools.nvim'
