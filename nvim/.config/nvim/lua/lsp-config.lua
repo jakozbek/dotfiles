@@ -106,21 +106,36 @@ cmp.setup {
 }
 
 -- Language Servers --
+local lsp_installer = require("nvim-lsp-installer")
 
--- Vim LSP
-lspconfig.vimls.setup{}
+-- ui configuration
+lsp_installer.settings({
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+
+lsp_installer.on_server_ready(function(server)
+ if server.name == "sumneko_lua" then
+     opts = {
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { 'vim' }
+                }
+            }
+        }
+     }
+ end
+     server:setup(opts)
+end)
+
+
 
 -- Rust Analyzer
 require('rust-tools').setup({})
-
--- Lua
-lspconfig.sumneko_lua.setup{
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-}
 
