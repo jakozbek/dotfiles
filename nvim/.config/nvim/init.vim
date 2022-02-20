@@ -46,6 +46,7 @@ augroup end
 
 " Init Lua Scripts for Further Plugin config
 lua require('lsp-config')
+lua require('init')
 
 " Gruvbox Theme: must happen after packer initialization
 set background=dark

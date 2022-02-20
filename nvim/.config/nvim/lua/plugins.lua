@@ -86,8 +86,11 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'raimondi/delimitmate' -- for auto closing {}, (), "", etc.
 
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
+    --use 'vim-airline/vim-airline'
+    --use 'vim-airline/vim-airline-themes'
+
+    -- Trying Hardline over Airline to be more NVIM native
+    use 'ojroques/nvim-hardline'
 
     -- Theme
     use 'morhetz/gruvbox'
