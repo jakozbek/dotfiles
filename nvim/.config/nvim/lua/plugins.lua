@@ -18,6 +18,8 @@ return require('packer').startup(function(use)
     -- LSP Installer --
     use 'williamboman/nvim-lsp-installer'
 
+    use 'onsails/lspkind-nvim'
+
     -- Rust Additional Tools For LSP --
     use 'simrat39/rust-tools.nvim'
 
