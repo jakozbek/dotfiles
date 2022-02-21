@@ -86,11 +86,12 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'raimondi/delimitmate' -- for auto closing {}, (), "", etc.
 
-    --use 'vim-airline/vim-airline'
-    --use 'vim-airline/vim-airline-themes'
+    use {'j-hui/fidget.nvim'}
 
-    -- Trying Hardline over Airline to be more NVIM native
-    use 'ojroques/nvim-hardline'
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
 
     -- Theme
     use 'morhetz/gruvbox'

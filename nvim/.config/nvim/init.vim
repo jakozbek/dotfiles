@@ -28,13 +28,6 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>qq :q!<CR>
 imap jj <Esc>
 
-" NERD Tree Toggle TODO: possibly stop using
-nnoremap <C-n> :NERDTreeToggle<CR>
-
-" TODO: possibly remove ALE
-" Must come before plugins are loaded
-let g:ale_disable_lsp = 1
-
 " packer
 " TODO: set up packer bootstrapping
 lua require('plugins')

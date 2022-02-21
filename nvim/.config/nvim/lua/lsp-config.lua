@@ -105,6 +105,20 @@ cmp.setup {
   },
 }
 
+-- LSP Status --
+-- Also configured in each language server
+local lsp_status = require('lsp-status')
+
+lsp_status.config({
+    indicator_errors = 'E',
+    indicator_warnings = 'W',
+    indicator_info = 'i',
+    indicator_hint = '?',
+    indicator_ok = 'Ok',
+})
+
+lsp_status.register_progress()
+
 -- LSP Kind With CMP --
 local lspkind = require('lspkind')
 
@@ -145,6 +159,8 @@ lsp_installer.on_server_ready(function(server)
         -- Lua
         if server.name == "sumneko_lua" then
             opts = {
+                on_attach = lsp_status.on_attach,
+                capabilities = lsp_status.capabilities,
                 settings = {
                     Lua = {
                         diagnostics = {
@@ -156,7 +172,7 @@ lsp_installer.on_server_ready(function(server)
         end
 
         server:setup(opts)
-    else
+    else -- rust_analyzer
         -- Initialize the LSP via rust-tools instead
         require("rust-tools").setup {
             -- The "server" property provided in rust-tools setup function are the
@@ -164,6 +180,8 @@ lsp_installer.on_server_ready(function(server)
             -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
             -- with the user's own settings (opts).
             server = vim.tbl_deep_extend("force", server:get_default_options(), opts),
+            on_attach = lsp_status.on_attach,
+            capabilities = lsp_status.capabilities
         }
         server:attach_buffers()
     end
