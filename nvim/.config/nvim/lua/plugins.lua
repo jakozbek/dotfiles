@@ -20,6 +20,12 @@ return require('packer').startup(function(use)
     -- get icons for functions, etc. in LSP completion
     use 'onsails/lspkind-nvim'
 
+    -- Treesitter --
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+
     -- Toggle an area to view all current errors and warnings
     use {
       "folke/trouble.nvim",
