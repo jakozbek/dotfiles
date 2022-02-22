@@ -1,13 +1,12 @@
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
 
-    -- TODO: completely remove, keep now for comparison testing
     -- Completion of Code
     --use { 'neoclide/coc.nvim', branch = 'release' }
 
     -- NVIM LSP Config
     use 'neovim/nvim-lspconfig'
-    use 'nvim-lua/lsp-status.nvim' -- Statusline for lsp
+    --use 'nvim-lua/lsp-status.nvim' -- Statusline for lsp
 
     -- Autocompletion for LSP
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
@@ -18,7 +17,20 @@ return require('packer').startup(function(use)
     -- LSP Installer --
     use 'williamboman/nvim-lsp-installer'
 
+    -- get icons for functions, etc. in LSP completion
     use 'onsails/lspkind-nvim'
+
+    -- Toggle an area to view all current errors and warnings
+    use {
+      "folke/trouble.nvim",
+      requires = "kyazdani42/nvim-web-devicons",
+      config = function()
+        require("trouble").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+        }
+      end
+    }
 
     -- Rust Additional Tools For LSP --
     use 'simrat39/rust-tools.nvim'
@@ -40,7 +52,6 @@ return require('packer').startup(function(use)
     use 'christoomey/vim-tmux-navigator'
 
     -- Like VSCODE
-    -- NERD Tree
     use 'ryanoasis/vim-devicons'
 
     -- Commenting like vscode
@@ -86,7 +97,11 @@ return require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'raimondi/delimitmate' -- for auto closing {}, (), "", etc.
 
+    -- Used to display Statusline from LSP in corner
     use {'j-hui/fidget.nvim'}
+    
+    -- TODO: is this needed?
+    use 'folke/lsp-colors.nvim'
 
     use {
       'nvim-lualine/lualine.nvim',
