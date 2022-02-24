@@ -2,11 +2,11 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
 
     -- Completion of Code
-    --use { 'neoclide/coc.nvim', branch = 'release' }
+    -- use { 'neoclide/coc.nvim', branch = 'release' }
 
     -- NVIM LSP Config
     use 'neovim/nvim-lspconfig'
-    --use 'nvim-lua/lsp-status.nvim' -- Statusline for lsp
+    -- use 'nvim-lua/lsp-status.nvim' -- Statusline for lsp
 
     -- Autocompletion for LSP
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
@@ -21,21 +21,18 @@ return require('packer').startup(function(use)
     use 'onsails/lspkind-nvim'
 
     -- Treesitter --
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
     -- Toggle an area to view all current errors and warnings
     use {
-      "folke/trouble.nvim",
-      requires = "kyazdani42/nvim-web-devicons",
-      config = function()
-        require("trouble").setup {
-          -- your configuration comes here
-          -- or leave it empty to use the default settings
-        }
-      end
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+            }
+        end
     }
 
     -- Rust Additional Tools For LSP --
@@ -44,11 +41,12 @@ return require('packer').startup(function(use)
     -- Crates
     use {
         'saecki/crates.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-        config = function()
-            require('crates').setup()
-        end,
+        requires = {'nvim-lua/plenary.nvim'},
+        config = function() require('crates').setup() end
     }
+
+    -- Lua --
+    use 'andrejlevkovitch/vim-lua-format'
 
     -- Debugging
     use 'nvim-lua/plenary.nvim'
@@ -73,27 +71,31 @@ return require('packer').startup(function(use)
     -- Searching
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { {'nvim-lua/plenary.nvim'} },
-        config = function() require('telescope').setup{
-            defaults = {
-                file_ignore_patterns = {
-                    ".git/*"
-                }
-            },
-            pickers = {
-                find_files = {
-                    hidden = true
-                }
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+        },
+        config = function()
+            require('telescope').setup {
+                extensions = {
+                    fzf = {
+                        fuzzy = true, -- false will only do exact matching
+                        override_generic_sorter = true, -- override the generic sorter
+                        override_file_sorter = true, -- override the file sorter
+                        case_mode = "smart_case" -- or "ignore_case" or "respect_case"
+                        -- the default case_mode is "smart_case"
+                    }
+                },
+                defaults = {file_ignore_patterns = {".git/*"}},
+                pickers = {find_files = {hidden = true}}
             }
-        }
+
+            require('telescope').load_extension('fzf')
         end
     }
 
-    --TODO: test this out
-    use {
-        'ThePrimeagen/harpoon',
-        requires = { {'nvim-lua/plenary.nvim'} }
-    }
+    -- TODO: test this out
+    use {'ThePrimeagen/harpoon', requires = {{'nvim-lua/plenary.nvim'}}}
 
     ---------
     -- QOL --
@@ -105,16 +107,15 @@ return require('packer').startup(function(use)
 
     -- Used to display Statusline from LSP in corner
     use {'j-hui/fidget.nvim'}
-    
+
     -- TODO: is this needed?
     use 'folke/lsp-colors.nvim'
 
     use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
 
     -- Theme
     use 'morhetz/gruvbox'
 end)
-

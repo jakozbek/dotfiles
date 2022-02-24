@@ -40,6 +40,7 @@ augroup end
 " Init Lua Scripts for Further Plugin config
 lua require('lsp-config')
 lua require('init')
+lua require('work')
 
 " Gruvbox Theme: must happen after packer initialization
 set background=dark
@@ -75,8 +76,13 @@ nmap <leader>gp :Git push<CR>
 " Trouble
 nnoremap <leader>tt <cmd>TroubleToggle<CR>
 
+""" Languages
+
 " Rust format on save
 autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
+
+" Lua format on save
+autocmd BufWrite *.lua call LuaFormat()
 
 " EasyMotion
 nmap s <Plug>(easymotion-s2)
@@ -90,4 +96,7 @@ set signcolumn=yes
 highlight GitGutterAdd    guifg=#009900 ctermfg=2
 highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+
+" Telescope
+nnoremap <leader>vd :lua require('init').search_dotfiles()<CR>
 
