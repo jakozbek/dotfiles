@@ -22,6 +22,8 @@ alias edvrc="vim ~/.config/nvim/init.vim"
 alias edt="vim ~/.tmux.conf"
 alias edvp="vim ~/.config/nvim/lua/plugins.lua"
 alias edi="vim ~/personal-dev/investigate-next"
+alias edza="vim ~/.zsh_aliases; exec zsh"
+alias edzw="vim ~/.zsh_work_profile; exec zsh"
 
 # Core Utils
 alias ls="exa -lah"

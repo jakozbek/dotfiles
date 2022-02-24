@@ -69,9 +69,14 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Vim Fugitive
-nmap <leader>gj :diffget //3<CR>
-nmap <leader>gf :diffget //2<CR>
 nmap <leader>gs :G<CR>
+nmap <leader>gp :Git push<CR>
+
+" Trouble
+nnoremap <leader>tt <cmd>TroubleToggle<CR>
+
+" Rust format on save
+autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
 
 " EasyMotion
 nmap s <Plug>(easymotion-s2)
@@ -79,6 +84,7 @@ nmap s <Plug>(easymotion-s2)
 " Airlines
 let g:airline#extensions#tabline#enabled = 1
 
+" TODO: change to gitsigns
 " GitGutter
 set signcolumn=yes
 highlight GitGutterAdd    guifg=#009900 ctermfg=2

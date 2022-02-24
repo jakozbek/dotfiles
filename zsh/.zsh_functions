@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 # Functions
 git_push_account_for_tracking = function() {
     tracking=$(git status -sb | grep origin/)
