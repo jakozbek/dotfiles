@@ -48,11 +48,6 @@ let g:gruvbox_contrast_dark='hard'
 
 autocmd vimenter * ++nested colorscheme gruvbox
 
-" Ctrl + / vscode-like commenting for nvim
-vmap <C-_> <plug>NERDCommenterToggle
-nmap <C-_> <plug>NERDCommenterToggle
-imap <C-_> <plug>NERDCommenterInsert
-
 " Minimap
 " TODO: possibly remove
 let g:minimap_width = 10
