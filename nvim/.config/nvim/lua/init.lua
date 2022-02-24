@@ -1,3 +1,7 @@
+local function map(mode, lhs, rhs)
+    vim.api.nvim_set_keymap(mode, lhs, rhs, {noremap = true, silent = true})
+end
+
 require('lualine').setup {
     options = {theme = 'gruvbox'},
     -- sections = { lualine_c = { "filename", 'data', "require'lsp-status'.status()" } }, -- if want progres in statusline
@@ -86,6 +90,12 @@ require'nvim-tree'.setup {
         }
     }
 }
+
+-- Commenter
+map('n', '<C-_>',
+    '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>')
+map('x', '<C-_>',
+    '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>')
 
 -- Telescope custom fns --
 local Module = {}

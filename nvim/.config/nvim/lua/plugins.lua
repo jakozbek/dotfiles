@@ -65,8 +65,11 @@ return require('packer').startup(function(use)
     -- Like VSCODE
     use 'ryanoasis/vim-devicons'
 
-    -- Commenting like vscode
-    use 'preservim/nerdcommenter'
+    -- Commenting
+    use {
+        'numToStr/Comment.nvim',
+        config = function() require('Comment').setup() end
+    }
 
     -- TODO: switch with nvim native gitsigns
     -- Potentially has performance issues
