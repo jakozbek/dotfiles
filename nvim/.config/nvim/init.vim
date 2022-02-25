@@ -93,7 +93,7 @@ highlight GitGutterChange guifg=#bbbb00 ctermfg=3
 highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
 " Telescope
-nnoremap <leader>vd :lua require('init').search_dotfiles()<CR>
+nnoremap <leader>vd :lua require('user.telescope').search_dotfiles()<CR>
 
 " NVIM Tree
 nnoremap <C-n> :NvimTreeToggle<CR>

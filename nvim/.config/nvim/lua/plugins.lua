@@ -1,12 +1,8 @@
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim' -- Package manager
 
-    -- Completion of Code
-    -- use { 'neoclide/coc.nvim', branch = 'release' }
-
     -- NVIM LSP Config
     use 'neovim/nvim-lspconfig'
-    -- use 'nvim-lua/lsp-status.nvim' -- Statusline for lsp
 
     -- Autocompletion for LSP
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
@@ -34,15 +30,12 @@ return require('packer').startup(function(use)
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("trouble").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-            }
-        end
+        config = function() require("trouble").setup {} end
     }
 
-    -- Rust Additional Tools For LSP --
+    -- Rust --
+
+    -- Rust Additional Tools For LSP
     use 'simrat39/rust-tools.nvim'
 
     -- Crates
@@ -84,24 +77,7 @@ return require('packer').startup(function(use)
         requires = {
             {'nvim-lua/plenary.nvim'},
             {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-        },
-        config = function()
-            require('telescope').setup {
-                extensions = {
-                    fzf = {
-                        fuzzy = true, -- false will only do exact matching
-                        override_generic_sorter = true, -- override the generic sorter
-                        override_file_sorter = true, -- override the file sorter
-                        case_mode = "smart_case" -- or "ignore_case" or "respect_case"
-                        -- the default case_mode is "smart_case"
-                    }
-                },
-                defaults = {file_ignore_patterns = {".git/*"}},
-                pickers = {find_files = {hidden = true}}
-            }
-
-            require('telescope').load_extension('fzf')
-        end
+        }
     }
 
     -- TODO: test this out
@@ -116,7 +92,7 @@ return require('packer').startup(function(use)
     use 'raimondi/delimitmate' -- for auto closing {}, (), "", etc.
 
     -- Used to display Statusline from LSP in corner
-    use {'j-hui/fidget.nvim'}
+    use {'j-hui/fidget.nvim', config = function() require"fidget".setup {} end}
 
     -- TODO: is this needed?
     use 'folke/lsp-colors.nvim'
