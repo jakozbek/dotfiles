@@ -134,6 +134,13 @@ lsp_installer.on_server_ready(function(server)
     else -- rust_analyzer
         -- Initialize the LSP via rust-tools instead
 
+        -- TODO: does this diable standalone
+        opts.server = {
+            -- standalone file support
+            -- setting it to false may improve startup time
+            standalone = false,
+        }
+
         require("rust-tools").setup {
             -- The "server" property provided in rust-tools setup function are the
             -- settings rust-tools will provide to lspconfig during init.
