@@ -64,9 +64,11 @@ return require('packer').startup(function(use)
         config = function() require('Comment').setup() end
     }
 
-    -- TODO: switch with nvim native gitsigns
-    -- Potentially has performance issues
-    use 'airblade/vim-gitgutter'
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = {'nvim-lua/plenary.nvim'}
+        -- tag = 'release' -- To use the latest release
+    }
 
     -- Git
     use 'tpope/vim-fugitive'
