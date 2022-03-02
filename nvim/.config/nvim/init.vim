@@ -20,6 +20,7 @@ set incsearch
 set colorcolumn=120
 set showmatch
 set pyxversion=3
+set hidden " For toggleterm
 
 filetype plugin on
 
@@ -41,6 +42,9 @@ augroup end
 lua require('lsp-config')
 lua require('init')
 lua require('work')
+
+" Lsp
+nnoremap <leader>lr <cmd>LspRestart<CR>
 
 " Gruvbox Theme: must happen after packer initialization
 set background=dark
