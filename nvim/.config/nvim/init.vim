@@ -71,6 +71,8 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 " Vim Fugitive
 nmap <leader>gs :G<CR>
 nmap <leader>gp :Git push<CR>
+nmap <leader>gf :diffget //2<CR>
+nmap <leader>gh :diffget //3<CR>
 
 " Trouble
 nnoremap <leader>tt <cmd>TroubleToggle<CR>
@@ -88,13 +90,6 @@ nmap s <Plug>(easymotion-s2)
 
 " Airlines
 let g:airline#extensions#tabline#enabled = 1
-
-" TODO: change to gitsigns
-" GitGutter
-set signcolumn=yes
-highlight GitGutterAdd    guifg=#009900 ctermfg=2
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
 " Telescope
 nnoremap <leader>vd :lua require('user.telescope').search_dotfiles()<CR>
