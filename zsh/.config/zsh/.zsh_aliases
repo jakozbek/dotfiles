@@ -17,13 +17,10 @@ alias gnvc="cd ~/.config/nvim"
 alias cdu="cd .."
 
 # Editing
-alias edrc="vim ~/.zsh_profile; exec zsh"
-alias edvrc="vim ~/.config/nvim/init.vim"
-alias edt="vim ~/.tmux.conf"
-alias edvp="vim ~/.config/nvim/lua/plugins.lua"
+alias edrc="vim $ZDOTDIR/.zsh_profile; exec zsh"
+alias edza="vim $ZDOTDIR/.zsh_aliases; exec zsh"
+alias edzw="vim $ZDOTDIR/.zsh_work_profile; exec zsh"
 alias edi="vim ~/personal-dev/investigate-next"
-alias edza="vim ~/.zsh_aliases; exec zsh"
-alias edzw="vim ~/.zsh_work_profile; exec zsh"
 
 # Core Utils
 alias ls="exa -lah"

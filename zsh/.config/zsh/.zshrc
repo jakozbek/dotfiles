@@ -40,6 +40,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Additional source files
-source ~/.zsh_functions
-source ~/.zsh_aliases
-source ~/.zsh_work_profile
+source $ZDOTDIR/.zsh_functions
+source $ZDOTDIR/.zsh_aliases
+source $ZDOTDIR/.zsh_work_profile
