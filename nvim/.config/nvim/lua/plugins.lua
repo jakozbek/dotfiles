@@ -106,6 +106,9 @@ return require('packer').startup(function(use)
 
     use 'akinsho/toggleterm.nvim'
 
+    -- Which key, never for get a mapping!
+    use "folke/which-key.nvim"
+
     -- Theme
     use 'morhetz/gruvbox'
 end)
