@@ -52,7 +52,14 @@ alias gbr="git branch --v | awk '/\[gone\]/ {print \$1}' | xargs git branch -D"
 alias gau="git add -u"
 alias gb="git branch --v"
 
+# Docker
+alias d="docker"
+alias dc="docker-compose"
+
 # GitHub CLI
 alias ghpr='gh pr create --base main --reviewer $DEFAULT_REVIEWER --title "$(git branch --show-current): $(get_jira_issue_summary)" --body '
+alias ghprr='gh pr edit --add-reviewer $DEFAULT_REVIEWER && gh pr ready'
 alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(get_jira_issue_summary)" --draft --body '
 
+# Rust
+alias cargo_test_print='cargo test -- --nocapture' # this is mainly here so I don't forget it

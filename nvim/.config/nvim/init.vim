@@ -21,6 +21,7 @@ set colorcolumn=120
 set showmatch
 set pyxversion=3
 set hidden " For toggleterm
+set nohlsearch " Don't keep search highlighted
 
 filetype plugin on
 
@@ -96,4 +97,8 @@ nnoremap <leader>vd :lua require('user.telescope').search_dotfiles()<CR>
 
 " NVIM Tree
 nnoremap <C-n> :NvimTreeToggle<CR>
+
+" Maybe use something like this in the future, I would only want it to popup
+" if I open nvim on the directory, not any file
+" autocmd VimEnter * lua require('telescope.builtin').find_files()
 
