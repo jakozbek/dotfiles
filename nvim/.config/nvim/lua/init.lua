@@ -1,3 +1,8 @@
+-- First require plugins
+require('plugins')
+require('lsp-config')
+require('work')
+
 require('user.commenter')
 require('user.gitsigns')
 require('user.lsp-colors')

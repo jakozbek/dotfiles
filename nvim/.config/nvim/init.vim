@@ -30,19 +30,13 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>qq :q!<CR>
 imap jj <Esc>
 
-" packer
-" TODO: set up packer bootstrapping
-lua require('plugins')
-
 augroup packer_user_config
   autocmd!
   autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 augroup end
 
-" Init Lua Scripts for Further Plugin config
-lua require('lsp-config')
+" Run initialization from lua 
 lua require('init')
-lua require('work')
 
 " Lsp
 nnoremap <leader>lr <cmd>LspRestart<CR>
