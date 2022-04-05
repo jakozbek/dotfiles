@@ -10,7 +10,6 @@ vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>',
 vim.api.nvim_set_keymap('n', '<space>q',
                         '<cmd>lua vim.diagnostic.setloclist()<CR>', mapping_opts)
 
--- TODO: is client needed as a function param?
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -73,6 +72,7 @@ local luasnip = require 'luasnip'
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
+
 cmp.setup {
     snippet = {
         expand = function(args) require('luasnip').lsp_expand(args.body) end
@@ -147,23 +147,23 @@ lsp_installer.on_server_ready(function(server)
 
         server:setup(opts)
     else -- rust_analyzer
-        -- Initialize the LSP via rust-tools instead
-
-        -- TODO: does this diable standalone
-        opts.server = {
-            -- standalone file support
-            -- setting it to false may improve startup time
-            standalone = false
-        }
-
         require("rust-tools").setup {
             -- The "server" property provided in rust-tools setup function are the
             -- settings rust-tools will provide to lspconfig during init.
             -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
             -- with the user's own settings (opts).
             server = vim.tbl_deep_extend("force", server:get_default_options(),
-                                         opts)
-            -- on_attach = on_attach
+                                         {
+                on_attach = opts.on_attach,
+                capabilities = opts.capabilities,
+                settings = {
+                    ['rust-analyzer'] = {
+                        cargo = {allFeatures = true},
+                        experimental = {procAttrMacros = false},
+                        checkOnSave = {command = "clippy"}
+                    }
+                }
+            })
         }
         server:attach_buffers()
     end

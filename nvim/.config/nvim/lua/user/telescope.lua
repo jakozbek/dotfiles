@@ -10,7 +10,7 @@ tele.setup {
             -- the default case_mode is "smart_case"
         }
     },
-    defaults = {file_ignore_patterns = {".git/*"}},
+    defaults = {file_ignore_patterns = {".git/*", "node_modules"}},
     pickers = {find_files = {hidden = true}}
 }
 
@@ -22,6 +22,13 @@ Module.search_dotfiles = function()
     require('telescope.builtin').find_files({
         promt_title = "< .dotfiles >",
         cwd = "~/.dotfiles"
+    })
+end
+
+Module.search_org = function()
+    require('telescope.builtin').find_files({
+        promt_title = "< Jesse's Awesome Custom Org Mode >",
+        cwd = "~/personal-dev/org"
     })
 end
 

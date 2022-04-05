@@ -6,5 +6,11 @@ require('user.lualine')
 require('user.nvim-tree')
 require('user.telescope')
 require('user.toggleterm')
+require('user.tokyonight')
 require('user.treesitter')
 require('user.whichkey')
+
+-- Github Copilot
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")',
+                        {silent = true, expr = true})

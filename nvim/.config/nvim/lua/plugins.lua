@@ -55,9 +55,6 @@ return require('packer').startup(function(use)
     -- TODO: am I using?
     use 'christoomey/vim-tmux-navigator'
 
-    -- Like VSCODE
-    use 'ryanoasis/vim-devicons'
-
     -- Commenting
     use {
         'numToStr/Comment.nvim',
@@ -109,6 +106,16 @@ return require('packer').startup(function(use)
     -- Which key, never for get a mapping!
     use "folke/which-key.nvim"
 
-    -- Theme
+    -- Themes
     use 'morhetz/gruvbox'
+    use 'folke/tokyonight.nvim'
+
+    -- Presentations
+    use 'sotte/presenting.vim'
+
+    -- Markdown
+    use 'ellisonleao/glow.nvim'
+
+    -- Github Copilot
+    use 'github/copilot.vim'
 end)

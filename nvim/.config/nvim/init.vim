@@ -47,19 +47,10 @@ lua require('work')
 " Lsp
 nnoremap <leader>lr <cmd>LspRestart<CR>
 
+" TODO: remove if not using gruvbox anymore
 " Gruvbox Theme: must happen after packer initialization
 set background=dark
 let g:gruvbox_contrast_dark='hard'
-
-autocmd vimenter * ++nested colorscheme gruvbox
-
-" Minimap
-" TODO: possibly remove
-let g:minimap_width = 10
-let g:minimap_auto_start = 1
-let g:minimap_auto_start_win_enter = 1
-let g:minimap_git_colors = 1
-let g:minimap_highlight_search = 1
 
 """ Searching
 " Telescope
@@ -94,11 +85,19 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Telescope
 nnoremap <leader>vd :lua require('user.telescope').search_dotfiles()<CR>
+nnoremap <leader>jo :lua require('user.telescope').search_org()<CR>
 
 " NVIM Tree
 nnoremap <C-n> :NvimTreeToggle<CR>
 
-" Maybe use something like this in the future, I would only want it to popup
-" if I open nvim on the directory, not any file
-" autocmd VimEnter * lua require('telescope.builtin').find_files()
+" Gitsigns
+nnoremap <leader>Gr :Gitsigns reset_hunk<CR>
+nnoremap <leader>Gp :Gitsigns preview_hunk<CR>
+nnoremap <leader>Gd :Gitsigns diffthis<CR>
+nnoremap <leader>Gs :Gitsigns stage_buffer<CR>
 
+" Markdown stuff
+let g:markdown_fenced_languages = ['json', 'vim', 'c', 'rust', 'python', 'sql', 'sh']
+let g:presenting_font_large = 'big'
+let g:presenting_font_small = 'mini'
+"

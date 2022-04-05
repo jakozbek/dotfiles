@@ -1,5 +1,8 @@
 # Workflow aliases
 
+# Org
+alias jo="nvim ~/personal-dev/org"
+
 # NVIM
 alias vd="nvim ."
 alias v.="nvim ."
@@ -11,6 +14,7 @@ alias vim="nvim"
 
 # Tmux
 alias t="tmux"
+alias tn="tmux new -s"
 
 # Directories & Navigation
 alias gnvc="cd ~/.config/nvim"
@@ -26,10 +30,6 @@ alias edi="vim ~/personal-dev/investigate-next"
 alias ls="exa -lah"
 alias l="exa -lah"
 alias lsg="exa -lah --git"
-
-# Tmux
-alias tm="tmux"
-alias tml="tmux -L"
 
 # Meta
 alias mgs="meta git status"
