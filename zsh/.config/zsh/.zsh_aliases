@@ -52,6 +52,10 @@ alias gbr="git branch --v | awk '/\[gone\]/ {print \$1}' | xargs git branch -D"
 alias gau="git add -u"
 alias gb="git branch --v"
 
+# Kubernetes
+alias k="kubectl"
+alias kname="kubectl config set-context --current --namespace=hotwallet"
+
 # Docker
 alias d="docker"
 alias dc="docker-compose"
