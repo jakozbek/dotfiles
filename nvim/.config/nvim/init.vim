@@ -71,9 +71,6 @@ autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
 " Lua format on save
 autocmd BufWrite *.lua call LuaFormat()
 
-" EasyMotion
-nmap s <Plug>(easymotion-s2)
-
 " Airlines
 let g:airline#extensions#tabline#enabled = 1
 

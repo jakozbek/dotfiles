@@ -1,6 +1,0 @@
-{
-    "diagnostic.virtualText": true,
-    "diagnostic.virtualTextCurrentLineOnly": false,
-    "diagnostic.checkCurrentLine": true,
-    "rust-analyzer.experimental.procAttrMacros": false
-}

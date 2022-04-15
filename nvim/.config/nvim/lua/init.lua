@@ -5,6 +5,7 @@ require('work')
 
 require('user.commenter')
 require('user.gitsigns')
+require('user.lightspeed')
 require('user.lsp-colors')
 require('user.lsp-installer')
 require('user.lualine')
