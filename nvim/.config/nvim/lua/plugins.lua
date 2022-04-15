@@ -19,6 +19,7 @@ return require('packer').startup(function(use)
     -- Treesitter --
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
 
+    -- File Tree --
     use {
         'kyazdani42/nvim-tree.lua',
         requires = {
@@ -52,9 +53,6 @@ return require('packer').startup(function(use)
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
 
-    -- TODO: am I using?
-    use 'christoomey/vim-tmux-navigator'
-
     -- Commenting
     use {
         'numToStr/Comment.nvim',
@@ -70,7 +68,7 @@ return require('packer').startup(function(use)
     -- Git
     use 'tpope/vim-fugitive'
 
-    -- Searching
+    -- File Searching
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
@@ -79,15 +77,14 @@ return require('packer').startup(function(use)
         }
     }
 
-    -- TODO: test this out
-    use {'ThePrimeagen/harpoon', requires = {{'nvim-lua/plenary.nvim'}}}
-
     ---------
     -- QOL --
     ---------
 
-    use 'easymotion/vim-easymotion'
+    use 'ggandor/lightspeed.nvim'
+
     use 'tpope/vim-surround'
+
     use 'raimondi/delimitmate' -- for auto closing {}, (), "", etc.
 
     -- Used to display Statusline from LSP in corner
