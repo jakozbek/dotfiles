@@ -18,6 +18,7 @@ setopt auto_cd
 # Additional source files
 source $ZDOTDIR/.zsh_functions
 
+# COMPLETIONS
 # compinstall
 zstyle :compinstall filename '/Users/akozbek/.zshrc'
 autoload -Uz compinit
@@ -42,6 +43,9 @@ export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/Current
 alias python=python3
 alias pip=pip3
 
+# Add file to path
+export PATH="$PATH:/Users/akozbek/bin:/usr/local/go/bin:/Users/akozbek/.doomemacs.d/bin"
+
 # Enable vim in terminal
 # bindkey -v
 # export KEYTIMEOUT=1
@@ -61,7 +65,7 @@ zsh_add_file .zsh_aliases
 zsh_add_file .zsh_work_profile
 
 # PLUGINS
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
+# zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "jeffreytse/zsh-vi-mode"
 
@@ -70,3 +74,6 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# AWS CLI Completions
+complete -C '/usr/local/bin/aws_completer' aws

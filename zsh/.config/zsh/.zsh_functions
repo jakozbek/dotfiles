@@ -3,7 +3,7 @@
 # Functions
 git_push_account_for_tracking = function() {
     tracking=$(git status -sb | grep origin/)
-    
+
     if [[ $tracking = "" ]]; then
         git push -u origin $(git branch --show-current)
     else
@@ -24,6 +24,11 @@ function col() {
     awk "{print \$$1}"
 }
 
+# gets the row of the argument passed in
+function row() {
+    sed -n "$1p"
+}
+
 
 ## From Chis @ Machine
 
@@ -34,7 +39,7 @@ function zsh_add_file() {
 
 function zsh_add_plugin() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
         # For plugins
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
@@ -45,7 +50,7 @@ function zsh_add_plugin() {
 
 function zsh_add_completion() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
+    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
         # For completions
 		completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
 		fpath+="$(dirname "${completion_file_path}")"
