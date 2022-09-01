@@ -160,7 +160,7 @@ lsp_installer.on_server_ready(function(server)
                     ['rust-analyzer'] = {
                         cargo = {allFeatures = true},
                         experimental = {procAttrMacros = false},
-                        checkOnSave = {command = "clippy"}
+                        checkOnSave = {command = "check"} -- Change to clippy if desired
                     }
                 }
             })

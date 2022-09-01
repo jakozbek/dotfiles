@@ -28,6 +28,7 @@ filetype plugin on
 " Leader Key Easy write and quit
 nnoremap <leader>w :w<CR>
 nnoremap <leader>qq :q!<CR>
+nnoremap <leader>qa :qa!<CR>
 imap jj <Esc>
 
 augroup packer_user_config
@@ -35,7 +36,16 @@ augroup packer_user_config
   autocmd BufWritePost plugins.lua source <afile> | PackerCompile
 augroup end
 
-" Run initialization from lua 
+" Fix auto-indentation for YAML files
+augroup yaml_fix
+    autocmd!
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
+augroup END
+
+" Removes whitespaces on save
+autocmd BufWritePre * %s/\s\+$//e
+
+" Run initialization from lua
 lua require('init')
 
 " Lsp
@@ -46,6 +56,8 @@ nnoremap <leader>lr <cmd>LspRestart<CR>
 set background=dark
 let g:gruvbox_contrast_dark='hard'
 
+nnoremap <leader>pp <cmd>echo @%<cr>
+
 """ Searching
 " Telescope
 " Find files using Telescope command-line sugar.
@@ -55,7 +67,7 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Vim Fugitive
-nmap <leader>gs :G<CR>
+nmap <leader>gs :G<CR>:only<CR>
 nmap <leader>gp :Git push<CR>
 nmap <leader>gf :diffget //2<CR>
 nmap <leader>gh :diffget //3<CR>

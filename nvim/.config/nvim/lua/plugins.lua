@@ -55,8 +55,8 @@ return require('packer').startup(function(use)
 
     -- Commenting
     use {
-        'numToStr/Comment.nvim',
-        config = function() require('Comment').setup() end
+        'numToStr/Comment.nvim'
+        -- config = function() require('Comment').setup() end
     }
 
     use {
@@ -97,8 +97,6 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
-
-    use 'akinsho/toggleterm.nvim'
 
     -- Which key, never for get a mapping!
     use "folke/which-key.nvim"
