@@ -22,7 +22,8 @@ alias gnvc="cd ~/.config/nvim"
 alias cdu="cd .."
 
 # Editing
-alias edrc="vim $ZDOTDIR/.zsh_profile; exec zsh"
+alias edrc="vim $ZDOTDIR/.zshrc; exec zsh"
+alias edzf="vim $ZDOTDIR/.zsh_functions; exec zsh"
 alias edza="vim $ZDOTDIR/.zsh_aliases; exec zsh"
 alias edzw="vim $ZDOTDIR/.zsh_work_profile; exec zsh"
 alias edi="vim ~/personal-dev/investigate-next"
@@ -39,6 +40,7 @@ alias mgb2r="meta exec \" git branch --v | awk '/\[gone\]/ {print \$1}' \" " # s
 
 # Cargo
 alias c="cargo"
+alias cch="cargo check"
 alias ccl="cargo clippy"
 alias cu="cargo update"
 alias ct="cargo test"
@@ -77,3 +79,6 @@ alias cargo_test_print='cargo test -- --nocapture' # this is mainly here so I do
 
 # Emacs
 alias org="doom run ~/org/todo.org"
+
+# sed
+alias sed="gsed"

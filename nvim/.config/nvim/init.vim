@@ -83,8 +83,7 @@ autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
 " Lua format on save
 autocmd BufWrite *.lua call LuaFormat()
 
-" Airlines
-let g:airline#extensions#tabline#enabled = 1
+""" End Languages
 
 " Telescope
 nnoremap <leader>vd :lua require('user.telescope').search_dotfiles()<CR>
@@ -103,4 +102,4 @@ nnoremap <leader>Gs :Gitsigns stage_buffer<CR>
 let g:markdown_fenced_languages = ['json', 'vim', 'c', 'rust', 'python', 'sql', 'sh']
 let g:presenting_font_large = 'big'
 let g:presenting_font_small = 'mini'
-"
+

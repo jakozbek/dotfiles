@@ -77,3 +77,6 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
 # AWS CLI Completions
 complete -C '/usr/local/bin/aws_completer' aws
+
+# Show dotfiles in search
+setopt globdots
