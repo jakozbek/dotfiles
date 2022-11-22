@@ -23,7 +23,7 @@ set pyxversion=3
 set hidden " For toggleterm
 set nohlsearch " Don't keep search highlighted
 
-filetype plugin on
+filetype plugin indent on
 
 " Leader Key Easy write and quit
 nnoremap <leader>w :w<CR>
@@ -78,7 +78,7 @@ nnoremap <leader>tt <cmd>TroubleToggle<CR>
 """ Languages
 
 " Rust format on save
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync(nil, 200)
+autocmd BufWritePre *.rs lua vim.lsp.buf.format(nil, 200)
 
 " Lua format on save
 autocmd BufWrite *.lua call LuaFormat()
@@ -102,4 +102,25 @@ nnoremap <leader>Gs :Gitsigns stage_buffer<CR>
 let g:markdown_fenced_languages = ['json', 'vim', 'c', 'rust', 'python', 'sql', 'sh']
 let g:presenting_font_large = 'big'
 let g:presenting_font_small = 'mini'
+
+""" Splits
+" Split location
+set splitbelow splitright
+
+" Split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+""" Misc
+
+" Toggle a terminal
+nnoremap <leader>tm :ToggleTerm direction=horizontal<CR>
+
+" Edit vimr configuration file
+nnoremap <Leader>ve :e $MYVIMRC<CR>
+
+" Reload vimr configuration file
+nnoremap <Leader>vr :source $MYVIMRC<CR>
 

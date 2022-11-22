@@ -10,7 +10,10 @@ tele.setup {
             -- the default case_mode is "smart_case"
         }
     },
-    defaults = {file_ignore_patterns = {".git/*", "node_modules"}},
+    defaults = {
+        file_ignore_patterns = {".git/*", "node_modules"},
+        layout_strategy = "vertical"
+    },
     pickers = {find_files = {hidden = true}}
 }
 

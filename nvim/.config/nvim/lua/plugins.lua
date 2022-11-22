@@ -4,6 +4,10 @@ return require('packer').startup(function(use)
     -- NVIM LSP Config
     use 'neovim/nvim-lspconfig'
 
+    -- LSP Related --
+    -----------------
+    -----------------
+
     -- Autocompletion for LSP
     use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
     use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
@@ -11,10 +15,30 @@ return require('packer').startup(function(use)
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
 
     -- LSP Installer --
-    use 'williamboman/nvim-lsp-installer'
+    use {"williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"}
+
+    -- Used to display Statusline from LSP in corner
+    use {'j-hui/fidget.nvim', config = function() require"fidget".setup {} end}
+
+    -- TODO: is this needed?
+    use 'folke/lsp-colors.nvim'
 
     -- get icons for functions, etc. in LSP completion
     use 'onsails/lspkind-nvim'
+
+    use({
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            vim.diagnostic.config({virtual_text = false})
+            vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle,
+                           {desc = "Toggle lsp_lines"})
+            require("lsp_lines").setup()
+        end
+    })
+
+    -----------------
+    -----------------
+    -- LSP Related --
 
     -- Treesitter --
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
@@ -54,16 +78,9 @@ return require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'
 
     -- Commenting
-    use {
-        'numToStr/Comment.nvim'
-        -- config = function() require('Comment').setup() end
-    }
+    use {'numToStr/Comment.nvim'}
 
-    use {
-        'lewis6991/gitsigns.nvim',
-        requires = {'nvim-lua/plenary.nvim'}
-        -- tag = 'release' -- To use the latest release
-    }
+    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
     -- Git
     use 'tpope/vim-fugitive'
@@ -81,17 +98,23 @@ return require('packer').startup(function(use)
     -- QOL --
     ---------
 
+    -- Surround --
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+                -- Conflicts with lightspeed.nvim
+                keymaps = {visual = "Z"}
+            })
+        end
+    })
+
+    -- Motions --
     use 'ggandor/lightspeed.nvim'
 
-    use 'tpope/vim-surround'
-
     use 'raimondi/delimitmate' -- for auto closing {}, (), "", etc.
-
-    -- Used to display Statusline from LSP in corner
-    use {'j-hui/fidget.nvim', config = function() require"fidget".setup {} end}
-
-    -- TODO: is this needed?
-    use 'folke/lsp-colors.nvim'
 
     use {
         'nvim-lualine/lualine.nvim',
@@ -102,8 +125,16 @@ return require('packer').startup(function(use)
     use "folke/which-key.nvim"
 
     -- Themes
-    use 'morhetz/gruvbox'
-    use 'folke/tokyonight.nvim'
+    use {
+        "catppuccin/nvim",
+        as = "catppuccin",
+        config = function()
+            require("catppuccin").setup {
+                flavour = "macchiato" -- mocha, macchiato, frappe, latte
+            }
+            vim.api.nvim_command "colorscheme catppuccin"
+        end
+    }
 
     -- Presentations
     use 'sotte/presenting.vim'
@@ -113,4 +144,11 @@ return require('packer').startup(function(use)
 
     -- Github Copilot
     use 'github/copilot.vim'
+
+    -- Toggleterm
+    use {
+        "akinsho/toggleterm.nvim",
+        tag = '*',
+        config = function() require("toggleterm").setup() end
+    }
 end)

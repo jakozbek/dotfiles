@@ -29,9 +29,10 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
                                 '<cmd>lua vim.lsp.buf.implementation()<CR>',
                                 mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',
-                                '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-                                mapping_opts)
+    -- TODO: map to something else, <C-k> is being used for navigation
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',
+    --                             '<cmd>lua vim.lsp.buf.signature_help()<CR>',
+    --                             mapping_opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa',
                                 '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
                                 mapping_opts)
@@ -65,7 +66,7 @@ end
 -- TODO: move capabilities further down
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -133,39 +134,29 @@ cmp.setup {
 -- Language Servers --
 ----------------------
 
-local lsp_installer = require("nvim-lsp-installer")
+require("mason").setup()
+local mason_installer = require("mason-lspconfig").setup()
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {on_attach = on_attach, capabilities = capabilities}
+local def_flags = {debounce_text_changes = 150}
 
-    if server.name ~= "rust_analyzer" then
-
-        -- Lua
-        if server.name == "sumneko_lua" then
-            opts.settings = {Lua = {diagnostics = {globals = {'vim'}}}}
-        end
-
-        server:setup(opts)
-    else -- rust_analyzer
-        require("rust-tools").setup {
-            -- The "server" property provided in rust-tools setup function are the
-            -- settings rust-tools will provide to lspconfig during init.
-            -- We merge the necessary settings from nvim-lsp-installer (server:get_default_options())
-            -- with the user's own settings (opts).
-            server = vim.tbl_deep_extend("force", server:get_default_options(),
-                                         {
-                on_attach = opts.on_attach,
-                capabilities = opts.capabilities,
-                settings = {
-                    ['rust-analyzer'] = {
-                        cargo = {allFeatures = true},
-                        experimental = {procAttrMacros = false},
-                        checkOnSave = {command = "check"} -- Change to clippy if desired
-                    }
-                }
-            })
+-- Rust Analyzer
+require"lspconfig".rust_analyzer.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = def_flags,
+    settings = {
+        ["rust-analyzer"] = {
+            cargo = {allFeatures = true},
+            procMacro = {enable = true},
+            checkOnSave = {command = "clippy"}
+            -- experimental = {procAttrMacros = false},
         }
-        server:attach_buffers()
-    end
+    }
+}
 
-end)
+-- Jedi Language Server
+require"lspconfig".jedi_language_server.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = def_flags
+}
