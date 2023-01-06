@@ -11,11 +11,13 @@ alias v="nvim"
 alias vi="nvim"
 alias ci="nvim"
 alias vim="nvim"
+alias vg="nvim .github"
 
 # Tmux
 alias t="tmux"
 alias tn="tmux new -s"
 alias show_ts="cat ~/.dotfiles/tmux/.tmux-work.conf"
+alias mux="tmuxinator"
 
 # Directories & Navigation
 alias gnvc="cd ~/.config/nvim"
@@ -33,6 +35,7 @@ alias edjo="vim ~/personal-dev/org"
 alias ls="exa -lah"
 alias l="exa -lah"
 alias lsg="exa -lah --git"
+alias lt="exa --tree"
 
 # Meta
 alias mgs="meta git status"
@@ -48,6 +51,7 @@ alias ct="cargo test"
 # Git
 alias g="git"
 alias gs="git status"
+alias gsad="git stash && git stash drop"
 alias gcm="git commit -m"
 alias gp="git_push_account_for_tracking"
 alias gfp="git fetch --prune"
@@ -55,11 +59,13 @@ alias gb2r="git branch --v | awk '/\[gone\]/ {print \$1}' "
 alias gbr="git branch --v | awk '/\[gone\]/ {print \$1}' | xargs git branch -D"
 alias gau="git add -u"
 alias gb="git branch --v"
+alias gd="git diff"
+alias gdm="git diff main"
 alias glp="git log --pretty=oneline --graph --decorate --all --abbrev-commit"
 
 # Kubernetes
 alias k="kubectl"
-alias kname="kubectl config set-context --current --namespace=hotwallet"
+alias kname="kubectl config set-context --current --namespace"
 alias kda="kubectl delete all --all"
 alias k_get_taints="kubectl get nodes -o json | jq '.items[].spec.taints' "
 
@@ -72,13 +78,16 @@ alias remove_docker_images="docker rmi -f $(docker images -a -q)"
 # GitHub CLI
 alias ghpr='gh pr create --base main --reviewer $DEFAULT_REVIEWER --title "$(git branch --show-current): $(get_jira_issue_summary)" --body '
 alias ghprr='gh pr edit --add-reviewer $DEFAULT_REVIEWER && gh pr ready'
-alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(get_jira_issue_summary)" --draft --body '
+alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(get_jira_issue_summary)" --draft --body "draft"'
 
 # Rust
 alias cargo_test_print='cargo test -- --nocapture' # this is mainly here so I don't forget it
 
 # Emacs
-alias org="doom run ~/org/todo.org"
+alias org="nvim ~/my-orgs/todo.org"
 
 # sed
 alias sed="gsed"
+
+# fd
+alias fdfe="fd . --type=file --exec"

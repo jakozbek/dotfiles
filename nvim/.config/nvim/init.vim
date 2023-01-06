@@ -75,16 +75,6 @@ nmap <leader>gh :diffget //3<CR>
 " Trouble
 nnoremap <leader>tt <cmd>TroubleToggle<CR>
 
-""" Languages
-
-" Rust format on save
-autocmd BufWritePre *.rs lua vim.lsp.buf.format(nil, 200)
-
-" Lua format on save
-autocmd BufWrite *.lua call LuaFormat()
-
-""" End Languages
-
 " Telescope
 nnoremap <leader>vd :lua require('user.telescope').search_dotfiles()<CR>
 nnoremap <leader>jo :lua require('user.telescope').search_org()<CR>
@@ -114,6 +104,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 """ Misc
+set termguicolors
 
 " Toggle a terminal
 nnoremap <leader>tm :ToggleTerm direction=horizontal<CR>

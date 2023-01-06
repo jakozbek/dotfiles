@@ -1,69 +1,55 @@
--- Mappings
+-- Setting for nvim-lspconfig
+
+-----------------------------
+-----------------------------
+-- Suggested Configuration --
+
+-- From suggested-configuration: https://github.com/neovim/nvim-lspconfig#suggested-configuration
+
+-- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local mapping_opts = {noremap = true, silent = true}
-vim.api.nvim_set_keymap('n', '<space>e',
-                        '<cmd>lua vim.diagnostic.open_float()<CR>', mapping_opts)
-vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>',
-                        mapping_opts)
-vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>',
-                        mapping_opts)
-vim.api.nvim_set_keymap('n', '<space>q',
-                        '<cmd>lua vim.diagnostic.setloclist()<CR>', mapping_opts)
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+    -- Don't enable when using nvim-cmp
     -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD',
-                                '<cmd>lua vim.lsp.buf.declaration()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd',
-                                '<cmd>lua vim.lsp.buf.definition()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K',
-                                '<cmd>lua vim.lsp.buf.hover()<CR>', mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi',
-                                '<cmd>lua vim.lsp.buf.implementation()<CR>',
-                                mapping_opts)
-    -- TODO: map to something else, <C-k> is being used for navigation
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',
-    --                             '<cmd>lua vim.lsp.buf.signature_help()<CR>',
-    --                             mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wa',
-                                '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wr',
-                                '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>wl',
-                                '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>D',
-                                '<cmd>lua vim.lsp.buf.type_definition()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>rn',
-                                '<cmd>lua vim.lsp.buf.rename()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>ca',
-                                '<cmd>lua vim.lsp.buf.code_action()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr',
-                                '<cmd>lua vim.lsp.buf.references()<CR>',
-                                mapping_opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<space>f',
-                                '<cmd>lua vim.lsp.buf.formatting()<CR>',
-                                mapping_opts)
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    -- chagned from default map <C-k> as it is being used for navigation
+    vim.keymap.set('n', '<C-r>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set('n', '<space>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
+-- Suggested Configuration --
+-----------------------------
+-----------------------------
+
+--------------------
 --------------------
 -- Autocompletion --
---------------------
 
--- TODO: move capabilities further down
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -108,7 +94,8 @@ cmp.setup {
             end
         end
     },
-    sources = {{name = 'nvim_lsp'}, {name = 'luasnip'}}
+    sources = { { name = 'nvim_lsp' }, { name = 'luasnip' }, { name = 'orgmode' }, }
+
 }
 
 -- LSP Kind With CMP to show symbols --
@@ -130,33 +117,60 @@ cmp.setup {
     }
 }
 
+
+-- Autocompletion --
+--------------------
+--------------------
+
 ----------------------
 -- Language Servers --
 ----------------------
 
 require("mason").setup()
-local mason_installer = require("mason-lspconfig").setup()
-
-local def_flags = {debounce_text_changes = 150}
+require("mason-lspconfig").setup()
 
 -- Rust Analyzer
-require"lspconfig".rust_analyzer.setup {
+require "lspconfig".rust_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    flags = def_flags,
     settings = {
         ["rust-analyzer"] = {
-            cargo = {allFeatures = true},
-            procMacro = {enable = true},
-            checkOnSave = {command = "clippy"}
-            -- experimental = {procAttrMacros = false},
+            cargo = { features = "all" },
+            checkOnSave = { command = "clippy" },
+            rustfmt = {
+                extraArgs = { "+nightly" }
+            }
         }
     }
 }
 
 -- Jedi Language Server
-require"lspconfig".jedi_language_server.setup {
+require "lspconfig".jedi_language_server.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    flags = def_flags
+}
+
+-- Lua
+require "lspconfig".sumneko_lua.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+-- YamlLS
+require "lspconfig".yamlls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = { yaml = { format = { enable = true } } }
+}
+
+-- Docker LS
+require "lspconfig".dockerls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+-- Toml LS
+require "lspconfig".taplo.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
 }

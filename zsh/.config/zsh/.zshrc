@@ -5,6 +5,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 # ZSH Profile for my personal development
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
@@ -20,7 +22,7 @@ source $ZDOTDIR/.zsh_functions
 
 # COMPLETIONS
 # compinstall
-zstyle :compinstall filename '/Users/akozbek/.zshrc'
+zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit
 compinit
 
@@ -46,15 +48,16 @@ alias pip=pip3
 # Add file to path
 export PATH="$PATH:/Users/akozbek/bin:/usr/local/go/bin:/Users/akozbek/.doomemacs.d/bin"
 
-# Enable vim in terminal
-# bindkey -v
-# export KEYTIMEOUT=1
-# bindkey "^?" backward-delete-char
+export EDITOR="nvim"
 
-# The below lines significantly slow down zsh when used if not using P10k theme
 # Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# Add default node to path
+# NOTE: *NOT* updated automatically
+export PATH=~/.nvm/versions/node/v17.0.1/bin:$PATH
+
+# Load NVM
+export NVM_DIR=~/.nvm
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # FZF

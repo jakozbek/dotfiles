@@ -15,10 +15,13 @@ return require('packer').startup(function(use)
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
 
     -- LSP Installer --
-    use {"williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim"}
+    use { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" }
+
+    -- Null-ls --
+    use 'jose-elias-alvarez/null-ls.nvim'
 
     -- Used to display Statusline from LSP in corner
-    use {'j-hui/fidget.nvim', config = function() require"fidget".setup {} end}
+    use { 'j-hui/fidget.nvim', config = function() require "fidget".setup {} end }
 
     -- TODO: is this needed?
     use 'folke/lsp-colors.nvim'
@@ -29,9 +32,9 @@ return require('packer').startup(function(use)
     use({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         config = function()
-            vim.diagnostic.config({virtual_text = false})
+            vim.diagnostic.config({ virtual_text = false })
             vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle,
-                           {desc = "Toggle lsp_lines"})
+                { desc = "Toggle lsp_lines" })
             require("lsp_lines").setup()
         end
     })
@@ -40,8 +43,12 @@ return require('packer').startup(function(use)
     -----------------
     -- LSP Related --
 
+    -- TODO: configure better --
+    -- Dashboard --
+    use { 'glepnir/dashboard-nvim' }
+
     -- Treesitter --
-    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
     -- File Tree --
     use {
@@ -66,7 +73,7 @@ return require('packer').startup(function(use)
     -- Crates
     use {
         'saecki/crates.nvim',
-        requires = {'nvim-lua/plenary.nvim'},
+        requires = { 'nvim-lua/plenary.nvim' },
         config = function() require('crates').setup() end
     }
 
@@ -78,9 +85,9 @@ return require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'
 
     -- Commenting
-    use {'numToStr/Comment.nvim'}
+    use { 'numToStr/Comment.nvim' }
 
-    use {'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}}
+    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
     -- Git
     use 'tpope/vim-fugitive'
@@ -89,8 +96,8 @@ return require('packer').startup(function(use)
     use {
         'nvim-telescope/telescope.nvim',
         requires = {
-            {'nvim-lua/plenary.nvim'},
-            {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+            { 'nvim-lua/plenary.nvim' },
+            { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
         }
     }
 
@@ -106,7 +113,7 @@ return require('packer').startup(function(use)
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to use defaults
                 -- Conflicts with lightspeed.nvim
-                keymaps = {visual = "Z"}
+                keymaps = { visual = "Z" }
             })
         end
     })
@@ -118,23 +125,14 @@ return require('packer').startup(function(use)
 
     use {
         'nvim-lualine/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true}
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
 
     -- Which key, never for get a mapping!
     use "folke/which-key.nvim"
 
     -- Themes
-    use {
-        "catppuccin/nvim",
-        as = "catppuccin",
-        config = function()
-            require("catppuccin").setup {
-                flavour = "macchiato" -- mocha, macchiato, frappe, latte
-            }
-            vim.api.nvim_command "colorscheme catppuccin"
-        end
-    }
+    use { "catppuccin/nvim", as = "catppuccin", }
 
     -- Presentations
     use 'sotte/presenting.vim'
@@ -151,4 +149,7 @@ return require('packer').startup(function(use)
         tag = '*',
         config = function() require("toggleterm").setup() end
     }
+
+    -- Orgmode nvim
+    use 'nvim-orgmode/orgmode'
 end)
