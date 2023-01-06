@@ -23,9 +23,6 @@ return require('packer').startup(function(use)
     -- Used to display Statusline from LSP in corner
     use { 'j-hui/fidget.nvim', config = function() require "fidget".setup {} end }
 
-    -- TODO: is this needed?
-    use 'folke/lsp-colors.nvim'
-
     -- get icons for functions, etc. in LSP completion
     use 'onsails/lspkind-nvim'
 
@@ -65,6 +62,7 @@ return require('packer').startup(function(use)
         config = function() require("trouble").setup {} end
     }
 
+    ----------
     -- Rust --
 
     -- Rust Additional Tools For LSP
@@ -77,8 +75,8 @@ return require('packer').startup(function(use)
         config = function() require('crates').setup() end
     }
 
-    -- Lua --
-    use 'andrejlevkovitch/vim-lua-format'
+    -- Rust --
+    ----------
 
     -- Debugging
     use 'nvim-lua/plenary.nvim'
@@ -134,15 +132,8 @@ return require('packer').startup(function(use)
     -- Themes
     use { "catppuccin/nvim", as = "catppuccin", }
 
-    -- Presentations
-    use 'sotte/presenting.vim'
-
-    -- Markdown
-    use 'ellisonleao/glow.nvim'
-
     -- Github Copilot
     use 'github/copilot.vim'
-
 
     -- Orgmode nvim
     use 'nvim-orgmode/orgmode'
