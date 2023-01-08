@@ -1,7 +1,7 @@
 -- Entrypoint
-require('work')
-require('mappings')
 require('options')
+require('mappings')
+require('work')
 require('plugins')
 
 ----------------

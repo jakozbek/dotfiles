@@ -42,8 +42,9 @@ return require('packer').startup(function(use)
             'folke/neodev.nvim',
         },
         config = function()
+            -- neodev must be called before settings up lsp config
+            require('neodev').setup()
             require('lsp-config')
-            require('neodev').setup() -- TODO: what does this do?
         end
     }
 
