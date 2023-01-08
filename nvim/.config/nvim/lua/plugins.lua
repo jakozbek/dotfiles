@@ -14,12 +14,11 @@ end
 local packer_bootstrap = ensure_packer()
 
 -- Executes packer compile whenever file change is made
--- TODO: also make for files in plugins folder
 vim.api.nvim_create_augroup('packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
-    pattern = 'plugins.lua',
+    pattern = 'lua/plugins/config/*.lua,plugins.lua',
     group = 'packer',
-    command = [[source <afile> | PackerCompile]]
+    command = [[source lua/plugins.lua | PackerCompile]]
 })
 
 return require('packer').startup(function(use)

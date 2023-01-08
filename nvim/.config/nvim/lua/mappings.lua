@@ -3,11 +3,8 @@
 -- Set leader
 vim.g.mapleader = ' '
 
--- quit vim
-vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, desc = '[q]uit nvim' })
-
 -- Leader Key Easy write and quit
-vim.keymap.set('n', '<leader>m', ":w<CR>", { noremap = true, desc = 'write file' })
+vim.keymap.set('n', '<leader>s', ":update<CR>", { noremap = true, desc = '[S]ave file', silent = true })
 
 -- Should be a default!
 vim.keymap.set('i', 'jj', "<Esc>", { noremap = true, desc = 'escape insert mode' })
