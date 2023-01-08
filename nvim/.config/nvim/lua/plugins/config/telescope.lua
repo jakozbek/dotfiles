@@ -1,8 +1,7 @@
 local tele = require('telescope')
 
 tele.setup {
-    extensions = {
-        fzf = {
+    extensions = { fzf = {
             fuzzy = true, -- false will only do exact matching
             override_generic_sorter = true, -- override the generic sorter
             override_file_sorter = true, -- override the file sorter
@@ -27,20 +26,12 @@ vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fm', builtin.keymaps, { desc = '[F]ind [M]appings' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp tags' })
 
-
 local M = {}
 
 M.search_dotfiles = function()
-    require('telescope.builtin').find_files({
+    builtin.find_files({
         promt_title = "< .dotfiles >",
         cwd = "~/.dotfiles"
-    })
-end
-
-M.search_org = function()
-    require('telescope.builtin').find_files({
-        promt_title = "< Jesse's Awesome Custom Org Mode >",
-        cwd = "~/personal-dev/org"
     })
 end
 

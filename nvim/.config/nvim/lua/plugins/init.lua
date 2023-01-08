@@ -43,6 +43,7 @@ return require('packer').startup(function(use)
     -- Start Page --
     use { 'goolord/alpha-nvim',
         config = function()
+            print("Alpha-nvim loaded")
             local default_config = require 'alpha.themes.dashboard'.config
 
             require 'alpha'.setup(default_config)
@@ -101,7 +102,10 @@ return require('packer').startup(function(use)
         requires = {
             { 'nvim-lua/plenary.nvim' },
             { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-        }
+        },
+        config = function()
+            require('plugins.config.telescope')
+        end
     }
 
     ---------
