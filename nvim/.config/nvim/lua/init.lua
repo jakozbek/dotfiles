@@ -7,7 +7,6 @@ require('set')
 
 require('user.catppuccin')
 require('user.commenter')
-require('user.dashboard-nvim')
 require('user.gitsigns')
 require('user.lightspeed')
 require('user.lualine')

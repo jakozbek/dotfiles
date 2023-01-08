@@ -40,9 +40,14 @@ return require('packer').startup(function(use)
     -----------------
     -- LSP Related --
 
-    -- TODO: configure better --
-    -- Dashboard --
-    use { 'glepnir/dashboard-nvim' }
+    -- Start Page --
+    use { 'goolord/alpha-nvim',
+        config = function()
+            local default_config = require 'alpha.themes.dashboard'.config
+
+            require 'alpha'.setup(default_config)
+        end,
+    }
 
     -- Treesitter --
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }

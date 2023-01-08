@@ -6,20 +6,11 @@ vim.g.mapleader = ' '
 -- quit vim
 vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, desc = '[q]uit nvim' })
 
--- Telescope
-local telescope = require('telescope.builtin')
-
-vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = '[F]ind with [G]rep' })
-vim.keymap.set('n', '<C-p>', telescope.git_files, {})
-vim.keymap.set('n', '<leader>fm', telescope.keymaps, { desc = '[F]ind [M]appings' })
-vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = '[F]ind [H]elp tags' })
-
 -- Leader Key Easy write and quit
 vim.keymap.set('n', '<leader>m', ":w<CR>", { noremap = true, desc = 'write file' })
 
--- Should be a default
-vim.keymap.set('i', 'jj', "<Esc>", {})
+-- Should be a default!
+vim.keymap.set('i', 'jj', "<Esc>", { noremap = true, desc = 'escape insert mode' })
 
 -- Vim Fugitive
 vim.keymap.set('n', '<leader>gs', ':G<CR>:only<CR>', {})

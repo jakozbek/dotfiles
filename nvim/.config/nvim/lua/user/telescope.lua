@@ -12,27 +12,36 @@ tele.setup {
     },
     defaults = {
         file_ignore_patterns = {".git/*", "node_modules"},
-        layout_strategy = "vertical"
     },
     pickers = {find_files = {hidden = true}}
 }
 
 tele.load_extension('fzf')
 
-local Module = {}
+-- Mapping
+local builtin = require('telescope.builtin')
 
-Module.search_dotfiles = function()
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind with [G]rep' })
+vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+vim.keymap.set('n', '<leader>fm', builtin.keymaps, { desc = '[F]ind [M]appings' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp tags' })
+
+
+local M = {}
+
+M.search_dotfiles = function()
     require('telescope.builtin').find_files({
         promt_title = "< .dotfiles >",
         cwd = "~/.dotfiles"
     })
 end
 
-Module.search_org = function()
+M.search_org = function()
     require('telescope.builtin').find_files({
         promt_title = "< Jesse's Awesome Custom Org Mode >",
         cwd = "~/personal-dev/org"
     })
 end
 
-return Module
+return M
