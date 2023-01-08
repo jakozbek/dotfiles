@@ -50,7 +50,7 @@ return require("packer").startup(function(use)
 			"folke/neodev.nvim",
 		},
 		config = function()
-			require("lsp-config")
+			require("plugins.config.lsp")
 		end,
 	})
 
