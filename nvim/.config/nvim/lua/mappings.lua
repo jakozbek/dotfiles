@@ -10,8 +10,8 @@ vim.keymap.set("n", "<leader>s", ":update<CR>", { noremap = true, desc = "[S]ave
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, desc = "escape insert mode" })
 
 -- Vim Fugitive
-vim.keymap.set("n", "<leader>gs", ":G<CR>:only<CR>", {})
-vim.keymap.set("n", "<leader>gp", ":Git push<CR>", {})
+vim.keymap.set("n", "<leader>gs", ":G<CR>:only<CR>", { desc = "[G]it [S]tatus" })
+vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "[G]it [P]ush" })
 vim.keymap.set("n", "<leader>gf", ":diffget //2<CR>", {})
 vim.keymap.set("n", "<leader>gh", ":diffget //3<CR>", {})
 

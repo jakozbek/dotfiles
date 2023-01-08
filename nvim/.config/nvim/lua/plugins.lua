@@ -48,9 +48,14 @@ return require("packer").startup(function(use)
 
 			-- Additional lua configuration, makes nvim stuff amazing
 			"folke/neodev.nvim",
+
+			-- Used to display Statusline from LSP in corner
+			"j-hui/fidget.nvim",
 		},
 		config = function()
 			require("plugins.config.lsp")
+
+			require("fidget").setup({})
 		end,
 	})
 
@@ -58,14 +63,6 @@ return require("packer").startup(function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
-	})
-
-	-- Used to display Statusline from LSP in corner
-	use({
-		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup({})
-		end,
 	})
 
 	-- get icons for functions, etc. in LSP completion
@@ -215,8 +212,6 @@ return require("packer").startup(function(use)
 			require("plugins.config.lightspeed")
 		end,
 	})
-
-	use("raimondi/delimitmate") -- for auto closing {}, (), "", etc.
 
 	use({
 		"nvim-lualine/lualine.nvim",
