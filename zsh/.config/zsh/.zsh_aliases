@@ -1,5 +1,9 @@
 # Workflow aliases
 
+# Fuzzy Search aliases
+# For when you forget what you set that alias to or if it exists
+alias f='cat $ZDOTDIR/.zsh_aliases | fzf'
+
 # Org
 alias jo="nvim ~/personal-dev/org"
 
@@ -62,6 +66,7 @@ alias gb="git branch --v"
 alias gd="git diff"
 alias gdm="git diff main"
 alias glp="git log --pretty=oneline --graph --decorate --all --abbrev-commit"
+alias gr="cd $(git rev-parse --show-toplevel)"
 
 # Kubernetes
 alias k="kubectl"

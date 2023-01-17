@@ -63,3 +63,52 @@ function zsh_add_completion() {
 	completion_file="$(basename "${completion_file_path}")"
 	if [ "$2" = true ] && compinit "${completion_file:1}"
 }
+
+## k8s namespaces
+# funciton to poll existing namespaces and set the in the kubectl context
+function k_set_namespace() {
+    possible_namespaces=$(kubectl get ns | awk '{print $1}' | tail -n +2)
+    # help message if no arguments are passed
+    # shows possible namespaces
+    if [[ $@ == "--help" || $@ = "-h" || $# -ne 1 ]]; then
+        echo "Usage: k_set_namespace <namespace_position>\n"
+        echo "Namespace Postition required:\n"
+        echo "Select a namespace from the following list:"
+
+        count=1
+        for namespace in $(echo $possible_namespaces); do
+            echo "$count: $namespace"
+            count=$((count+1))
+        done
+
+        echo "\n"
+
+        return
+    fi
+
+    # the first input is the position of the namespace in the possible_namespaces list
+    namespace_position=$1
+
+    # check that input is a number
+    if ! [[ $namespace_position =~ ^[0-9]+$ ]]; then
+        echo "Error: namespace position must be a number\n"
+        echo "Run with --help to see usage"
+        return
+    fi
+
+    # get possible namespaces
+    # tail -n +2 skips the first line which is the header, NAME
+    namespace=$( echo $possible_namespaces | sed -n "$namespace_position p")
+
+    # check if namespace is empty
+    if [[ -z $namespace ]]; then
+        echo "Error: namespace position is out of range\n"
+        echo "Run with --help to see namespaces and select a namespace that is in range"
+        return
+    fi
+
+    # set the namespace
+    echo "Setting kubectl context to namespace: $namespace"
+    kubectl config set-context --current --namespace=$namespace
+}
+
