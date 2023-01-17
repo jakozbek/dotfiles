@@ -4,6 +4,12 @@ require("mappings")
 require("work")
 require("plugins")
 
+-- Colorscheme
+-- Options: catpuccin, kanagawa
+-- Paste the colorscheme you would like to use below
+-- -- TODO: why is transparency not set at init
+vim.api.nvim_command("colorscheme kanagawa")
+
 -- Removes whitespaces on save
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
@@ -11,8 +17,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- Github Copilot
-vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+-- vim.g.copilot_no_tab_map = true
+-- vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
 -----------------------
 -----------------------

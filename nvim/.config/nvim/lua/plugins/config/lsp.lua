@@ -9,6 +9,8 @@ require("neodev").setup()
 
 -- From suggested-configuration: https://github.com/neovim/nvim-lspconfig#suggested-configuration
 
+vim.lsp.set_log_level("debug")
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -169,6 +171,7 @@ require("mason-lspconfig").setup({
 
 -- Rust Analyzer
 local lsp_config = require("lspconfig")
+
 lsp_config.rust_analyzer.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
@@ -188,3 +191,36 @@ lsp_config.sumneko_lua.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+
+-- Python
+local util = require("lspconfig.util")
+
+local pyright_root_files_first = {
+	"pyproject.toml",
+	"pyrightconfig.json",
+}
+
+lsp_config.pyright.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	root_dir = util.root_pattern(unpack(pyright_root_files_first)),
+	-- settings map to those found in: [pyright/docs/settings.md](https://github.com/microsoft/pyright/blob/main/docs/settings.md)
+	-- NOT those found in Configuraiton which is project specific
+	settings = {
+		pyright = {
+			disableOrganizeImports = true,
+		},
+		-- python = {
+		-- 	analysis = {
+		-- typeCheckingMode = "off",
+		-- autoSearchPaths = true,
+		-- useLibraryCodeForTypes = true,
+		-- 	},
+		-- },
+	},
+})
+
+-- lsp_config.jedi_language_server.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })

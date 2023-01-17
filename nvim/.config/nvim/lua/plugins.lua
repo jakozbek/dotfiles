@@ -68,14 +68,15 @@ return require("packer").startup(function(use)
 	-- get icons for functions, etc. in LSP completion
 	use("onsails/lspkind-nvim")
 
-	use({
-		"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		config = function()
-			vim.diagnostic.config({ virtual_text = false })
-			vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
-			require("lsp_lines").setup()
-		end,
-	})
+	-- TODO: maybe use, but it got annoying
+	-- use({
+	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+	-- 	config = function()
+	-- 		vim.diagnostic.config({ virtual_text = false })
+	-- 		vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
+	-- 		require("lsp_lines").setup()
+	-- 	end,
+	-- })
 
 	-----------------
 	-----------------
@@ -96,6 +97,15 @@ return require("packer").startup(function(use)
 			local default_config = require("alpha.themes.dashboard").config
 
 			require("alpha").setup(default_config)
+		end,
+	})
+
+	-- Install before treesitter
+	-- Orgmode nvim
+	use({
+		"nvim-orgmode/orgmode",
+		config = function()
+			require("plugins.config.org")
 		end,
 	})
 
@@ -192,6 +202,14 @@ return require("packer").startup(function(use)
 	-- QOL --
 	---------
 
+	-- Autopairs {} () []
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup()
+		end,
+	})
+
 	-- Surround --
 	use({
 		"kylechui/nvim-surround",
@@ -229,7 +247,8 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Themes
+	------------------
+	-- Colorschemes --
 	use({
 		"catppuccin/nvim",
 		as = "catppuccin",
@@ -238,16 +257,18 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Github Copilot
-	use("github/copilot.vim")
-
-	-- Orgmode nvim
 	use({
-		"nvim-orgmode/orgmode",
+		"rebelot/kanagawa.nvim",
 		config = function()
-			require("plugins.config.org")
+			require("plugins.config.kangawa")
 		end,
 	})
+
+	-- Colorschemes --
+	------------------
+
+	-- Github Copilot
+	-- use("github/copilot.vim")
 
 	-- Used at bootstrap
 	if packer_bootstrap then
