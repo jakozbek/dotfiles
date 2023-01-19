@@ -18,6 +18,7 @@ vim.api.nvim_create_augroup("packer", { clear = true })
 vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = "lua/plugins/config/*.lua,plugins.lua",
 	group = "packer",
+	-- TODO: this depends on where we open nvim from, remove this somehow
 	command = [[source lua/plugins.lua | PackerCompile]],
 })
 
@@ -68,16 +69,6 @@ return require("packer").startup(function(use)
 	-- get icons for functions, etc. in LSP completion
 	use("onsails/lspkind-nvim")
 
-	-- TODO: maybe use, but it got annoying
-	-- use({
-	-- 	"https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-	-- 	config = function()
-	-- 		vim.diagnostic.config({ virtual_text = false })
-	-- 		vim.keymap.set("", "<Leader>l", require("lsp_lines").toggle, { desc = "Toggle lsp_lines" })
-	-- 		require("lsp_lines").setup()
-	-- 	end,
-	-- })
-
 	-----------------
 	-----------------
 	-- LSP Related --
@@ -87,16 +78,6 @@ return require("packer").startup(function(use)
 		"lewis6991/impatient.nvim",
 		config = function()
 			pcall(require, "impatient")
-		end,
-	})
-
-	-- Start Page --
-	use({
-		"goolord/alpha-nvim",
-		config = function()
-			local default_config = require("alpha.themes.dashboard").config
-
-			require("alpha").setup(default_config)
 		end,
 	})
 
@@ -231,6 +212,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- TODO: this kills start screen for some reason
 	use({
 		"nvim-lualine/lualine.nvim",
 		requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -249,6 +231,7 @@ return require("packer").startup(function(use)
 
 	------------------
 	-- Colorschemes --
+
 	use({
 		"catppuccin/nvim",
 		as = "catppuccin",
@@ -268,10 +251,16 @@ return require("packer").startup(function(use)
 	------------------
 
 	-- Github Copilot
-	-- use("github/copilot.vim")
+	use({
+		"github/copilot.vim",
+		config = function()
+			require("plugins.config.copilot")
+		end,
+	})
 
 	-- Used at bootstrap
 	if packer_bootstrap then
+		print("Packer bootstrapping...")
 		require("packer").sync()
 	end
 end)
