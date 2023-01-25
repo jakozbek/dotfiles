@@ -2,10 +2,10 @@
 
 # Fuzzy Search aliases
 # For when you forget what you set that alias to or if it exists
-alias f='cat $ZDOTDIR/.zsh_aliases | fzf'
-
-# Org
-alias jo="nvim ~/personal-dev/org"
+alias a='alias | fzf'
+alias fv='vim_fzf_result'
+alias cdc='common_directories' # function
+alias acd='add_to_common_dirs' # function
 
 # NVIM
 alias vd="nvim ."
@@ -32,8 +32,7 @@ alias edrc="vim $ZDOTDIR/.zshrc; exec zsh"
 alias edzf="vim $ZDOTDIR/.zsh_functions; exec zsh"
 alias edza="vim $ZDOTDIR/.zsh_aliases; exec zsh"
 alias edzw="vim $ZDOTDIR/.zsh_work_profile; exec zsh"
-alias edi="vim ~/personal-dev/investigate-next"
-alias edjo="vim ~/personal-dev/org"
+alias sn="exec zsh"
 
 # Core Utils
 alias ls="exa -lah"
@@ -54,19 +53,20 @@ alias ct="cargo test"
 
 # Git
 alias g="git"
-alias gs="git status"
-alias gsad="git stash && git stash drop"
-alias gcm="git commit -m"
-alias gp="git_push_account_for_tracking"
-alias gfp="git fetch --prune"
-alias gb2r="git branch --v | awk '/\[gone\]/ {print \$1}' "
-alias gbr="git branch --v | awk '/\[gone\]/ {print \$1}' | xargs git branch -D"
 alias gau="git add -u"
+alias gb2r="git branch --v | awk '/\[gone\]/ {print \$1}' "
 alias gb="git branch --v"
+alias gbf="change_branch_fzf"
+alias gbr="git branch --v | awk '/\[gone\]/ {print \$1}' | xargs git branch -D"
+alias gcm="git commit -m"
 alias gd="git diff"
 alias gdm="git diff main"
+alias gfp="git fetch --prune"
 alias glp="git log --pretty=oneline --graph --decorate --all --abbrev-commit"
-alias gr="cd $(git rev-parse --show-toplevel)"
+alias gp="git_push_account_for_tracking"
+alias gr="git_root" # function
+alias gs="git status"
+alias gsad="git stash && git stash drop"
 
 # Kubernetes
 alias k="kubectl"

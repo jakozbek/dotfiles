@@ -23,7 +23,7 @@ source $ZDOTDIR/.zsh_functions
 # COMPLETIONS
 # compinstall
 zstyle :compinstall filename '~/.zshrc'
-autoload -Uz compinit
+autoload -Uz compinit && compinit
 compinit
 
 # zsh completions
@@ -50,6 +50,7 @@ export PATH="$PATH:/Users/akozbek/bin:/usr/local/go/bin:/Users/akozbek/.doomemac
 
 export EDITOR="nvim"
 
+# TODO: lazy load NVM
 # Node Version Manager
 # Add default node to path
 # NOTE: *NOT* updated automatically
@@ -68,9 +69,10 @@ zsh_add_file .zsh_aliases
 zsh_add_file .zsh_work_profile
 
 # PLUGINS
-# zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "jeffreytse/zsh-vi-mode"
+zsh_add_plugin "Aloxaf/fzf-tab"
 
 # For zsh-vi-mode
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
@@ -79,6 +81,8 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # AWS CLI Completions
+autoload bashcompinit && bashcompinit
+
 complete -C '/usr/local/bin/aws_completer' aws
 
 # Show dotfiles in search

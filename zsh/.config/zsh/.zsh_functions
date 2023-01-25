@@ -1,5 +1,12 @@
 #!/bin/zsh
 
+# Performance testing
+# From https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
 # Functions
 git_push_account_for_tracking = function() {
     tracking=$(git status -sb | grep origin/)
@@ -19,6 +26,35 @@ get_jira_issue_summary = function() {
     rm temp_jira_issues
 }
 
+# FZF
+
+# Fuzzy search for files to open in vim or return if escape is pressed
+# source:https://stackoverflow.com/a/65375231/2571881
+function vim_fzf_result() {
+    local fname
+    fname=$(fzf) || return
+    vim "$fname"
+}
+
+function change_branch_fzf() {
+    choice=$(git branch | awk '{print $1}' | grep --invert-match \* | fzf \
+            --prompt="Switch branch: " \
+            --header="Select a branch to switch to" \
+            --height 40% --reverse
+    )
+
+    git switch $choice
+}
+
+function common_directories() {
+    dir=$(cat ~/.common_directories | fzf) || return
+    cd $dir
+}
+
+function add_to_common_dirs() {
+    echo $PWD >> ~/.common_directories
+}
+
 # gets the column of the argument passed in
 function col() {
     awk "{print \$$1}"
@@ -29,9 +65,16 @@ function row() {
     sed -n "$1p"
 }
 
+### Git
+
+# get root of project
+function git_root() {
+    cd $(git rev-parse --show-toplevel)
+}
 
 ## From Chis @ Machine
 
+# Why can I not use exec zsh here?
 # Function to source files if they exist
 function zsh_add_file() {
     [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
@@ -42,7 +85,7 @@ function zsh_add_plugin() {
     if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
         # For plugins
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
-        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+            zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
     else
         git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
     fi
@@ -52,16 +95,16 @@ function zsh_add_completion() {
     PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
     if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
         # For completions
-		completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
-		fpath+="$(dirname "${completion_file_path}")"
+        completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+        fpath+="$(dirname "${completion_file_path}")"
         zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
     else
         git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
-		fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+        fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
         [ -f $ZDOTDIR/.zccompdump ] && $ZDOTDIR/.zccompdump
     fi
-	completion_file="$(basename "${completion_file_path}")"
-	if [ "$2" = true ] && compinit "${completion_file:1}"
+    completion_file="$(basename "${completion_file_path}")"
+    if [ "$2" = true ] && compinit "${completion_file:1}"
 }
 
 ## k8s namespaces
@@ -111,4 +154,3 @@ function k_set_namespace() {
     echo "Setting kubectl context to namespace: $namespace"
     kubectl config set-context --current --namespace=$namespace
 }
-
