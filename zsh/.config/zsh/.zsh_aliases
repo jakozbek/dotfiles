@@ -17,6 +17,9 @@ alias ci="nvim"
 alias vim="nvim"
 alias vg="nvim .github"
 
+# cat
+alias cat="bat"
+
 # Tmux
 alias t="tmux"
 alias tn="tmux new -s"
