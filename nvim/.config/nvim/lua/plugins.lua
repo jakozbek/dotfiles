@@ -32,6 +32,7 @@ return require("packer").startup(function(use)
 
 	-- Should be called before lsp
 	-- Null-ls --
+	-- TODO: may need this at some point -> https://github.com/jay-babu/mason-null-ls.nvim
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		config = function()

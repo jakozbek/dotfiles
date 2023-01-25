@@ -61,6 +61,7 @@ local on_attach = function(client, bufnr)
 		})
 	end
 
+	-- Use this for formatting not on save
 	-- Create a command `:Format` local to the LSP buffer
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 		formatter(bufnr)
@@ -192,6 +193,13 @@ lsp_config.sumneko_lua.setup({
 	capabilities = capabilities,
 })
 
+-- Bash
+lsp_config.bashls.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	filetypes = { "sh", "zsh" },
+})
+
 -- Python
 local util = require("lspconfig.util")
 
@@ -219,8 +227,3 @@ lsp_config.pyright.setup({
 		-- },
 	},
 })
-
--- lsp_config.jedi_language_server.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- })
