@@ -19,7 +19,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	pattern = "lua/plugins/config/*.lua,plugins.lua",
 	group = "packer",
 	-- TODO: this depends on where we open nvim from, remove this somehow
-	command = [[source lua/plugins.lua | PackerCompile]],
+	command = [[source ~/.config/nvim/lua/plugins.lua | PackerCompile]],
 })
 
 return require("packer").startup(function(use)
@@ -65,6 +65,18 @@ return require("packer").startup(function(use)
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+	})
+
+	-- Debug Adapter Protocol
+	use({
+		"mfussenegger/nvim-dap",
+		requires = {
+			"rcarriga/nvim-dap-ui",
+			"mfussenegger/nvim-dap-python",
+		},
+		config = function()
+			require("plugins.config.dap")
+		end,
 	})
 
 	-- get icons for functions, etc. in LSP completion
@@ -131,7 +143,12 @@ return require("packer").startup(function(use)
 	-- Rust --
 
 	-- Rust Additional Tools For LSP
-	use("simrat39/rust-tools.nvim")
+	use({
+		"simrat39/rust-tools.nvim",
+		config = function()
+			require("plugins.config.rust-tools")
+		end,
+	})
 
 	-- Crates
 	use({
@@ -147,7 +164,6 @@ return require("packer").startup(function(use)
 
 	-- Debugging
 	use("nvim-lua/plenary.nvim")
-	use("mfussenegger/nvim-dap")
 
 	-- Commenting
 	use({
@@ -251,11 +267,39 @@ return require("packer").startup(function(use)
 	-- Colorschemes --
 	------------------
 
-	-- Github Copilot
+	-- Codeium
 	use({
-		"github/copilot.vim",
+		"Exafunction/codeium.vim",
 		config = function()
-			require("plugins.config.copilot")
+			vim.keymap.set("i", "<C-j>", function()
+				return vim.fn["codeium#Accept"]()
+			end, { expr = true })
+		end,
+	})
+
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({
+				background_colour = "#000000",
+			})
+		end,
+	})
+
+	-- TODO: not working perfectly right now
+	use({
+		"akinsho/git-conflict.nvim",
+		tag = "*",
+		config = function()
+			require("git-conflict").setup({
+				default_mappings = true, -- disable buffer local mapping created by this plugin
+				default_commands = true, -- disable commands created by this plugin
+				disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
+				highlights = { -- They must have background color, otherwise the default color will be used
+					incoming = "DiffText",
+					current = "DiffAdd",
+				},
+			})
 		end,
 	})
 

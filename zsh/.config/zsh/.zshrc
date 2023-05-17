@@ -42,11 +42,18 @@ CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 
 # python
 export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/Current
+export PYTHON_CONFIGURE_OPTS="--enable-shared"
 alias python=python3
 alias pip=pip3
 
-# Add file to path
+# Add user install pip packages to path
+export PATH="$PATH:/Users/akozbek/Library/Python/3.11/bin"
+
+# Add doom emacs bin to path
 export PATH="$PATH:/Users/akozbek/bin:/usr/local/go/bin:/Users/akozbek/.doomemacs.d/bin"
+
+# Adds vscode-lldb to path
+export PATH="$PATH:/usr/local/opt/llvm/bin"
 
 export EDITOR="nvim"
 
@@ -87,3 +94,7 @@ complete -C '/usr/local/bin/aws_completer' aws
 
 # Show dotfiles in search
 setopt globdots
+
+# Sync history between sessions
+setopt share_history
+

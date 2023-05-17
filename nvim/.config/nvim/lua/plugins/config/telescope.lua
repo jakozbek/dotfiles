@@ -40,7 +40,13 @@ local find_config_files = function()
 	})
 end
 
-vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+local find_org_files = function()
+	builtin.find_files({
+		prompt_title = "< jOrg Mode >",
+		cwd = "~/my-orgs/",
+	})
+end
+
 vim.keymap.set("n", "<leader>/", function()
 	-- You can pass additional configuration to telescope to change theme, layout, etc.
 	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
@@ -49,10 +55,19 @@ vim.keymap.set("n", "<leader>/", function()
 	}))
 end, { desc = "[/] Fuzzily search in current buffer]" })
 
+local grep_not_test_files = function()
+	builtin.live_grep({ glog_pattern = "!*test*" })
+end
+
+vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ][ ] Find existing buffers" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind with [G]rep" })
+vim.keymap.set("n", "<leader>fnt", grep_not_test_files, { desc = "[F]ind [n]ot [t]est" })
+
 vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[S]earch current [W]ord under cursor" })
-vim.keymap.set("n", "<C-p>", builtin.git_files, {})
+vim.keymap.set("n", "<leader>fG", builtin.git_files, { desc = "[F]ind [G]it files" })
 vim.keymap.set("n", "<leader>fm", builtin.keymaps, { desc = "[F]ind [M]appings" })
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp tags" })
+vim.keymap.set("n", "<leader>fp", builtin.planets, { desc = "[F]ind [P]lanets (use the telescope!)" })
 vim.keymap.set("n", "<leader>fc", find_config_files, { desc = "[F]ind [C]onfig" })
+vim.keymap.set("n", "<leader>fo", find_org_files, { desc = "[F]ind j[O]rg mode" })

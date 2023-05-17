@@ -9,8 +9,6 @@ require("neodev").setup()
 
 -- From suggested-configuration: https://github.com/neovim/nvim-lspconfig#suggested-configuration
 
-vim.lsp.set_log_level("debug")
-
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
@@ -51,13 +49,14 @@ local on_attach = function(client, bufnr)
 		vim.lsp.buf.format({
 			filter = function(format_client)
 				-- For lua, we want to use stylua so we return false for the language server
-				if format_client.name == "sumneko_lua" then
+				if format_client.name == "lua_ls" then
 					return false
 				else
 					return true
 				end
 			end,
 			bufnr = buffer,
+			timeout = 5000,
 		})
 	end
 
@@ -167,7 +166,7 @@ cmp.setup({
 -- This order must be followed: mason, mason-lspconfig, lspconfig
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "sumneko_lua", "rust_analyzer" },
+	ensure_installed = { "lua_ls", "rust_analyzer" },
 })
 
 -- Rust Analyzer
@@ -188,7 +187,7 @@ lsp_config.rust_analyzer.setup({
 })
 
 -- Lua
-lsp_config.sumneko_lua.setup({
+lsp_config.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
@@ -203,6 +202,7 @@ lsp_config.bashls.setup({
 -- Python
 local util = require("lspconfig.util")
 
+-- TODO: still learning how much I need to use these
 local pyright_root_files_first = {
 	"pyproject.toml",
 	"pyrightconfig.json",
@@ -211,19 +211,18 @@ local pyright_root_files_first = {
 lsp_config.pyright.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	root_dir = util.root_pattern(unpack(pyright_root_files_first)),
+	flags = { debounce_text_changes = 300 },
+	-- root_dir = util.root_pattern(unpack(pyright_root_files_first)),
 	-- settings map to those found in: [pyright/docs/settings.md](https://github.com/microsoft/pyright/blob/main/docs/settings.md)
-	-- NOT those found in Configuraiton which is project specific
 	settings = {
 		pyright = {
 			disableOrganizeImports = true,
 		},
-		-- python = {
-		-- 	analysis = {
-		-- typeCheckingMode = "off",
-		-- autoSearchPaths = true,
-		-- useLibraryCodeForTypes = true,
-		-- 	},
-		-- },
+		python = {
+			analysis = {
+				diagnosticMode = "openFilesOnly",
+				typeCheckingMode = "off",
+			},
+		},
 	},
 })

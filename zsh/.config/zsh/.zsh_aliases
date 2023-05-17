@@ -92,10 +92,14 @@ alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(g
 alias cargo_test_print='cargo test -- --nocapture' # this is mainly here so I don't forget it
 
 # Emacs
-alias org="nvim ~/my-orgs/todo.org"
+alias org="nvim ~/my-orgs"
 
 # sed
 alias sed="gsed"
 
 # fd
 alias fdfe="fd . --type=file --exec"
+
+# scratch
+alias scratch="nvim ~/scratch"
+

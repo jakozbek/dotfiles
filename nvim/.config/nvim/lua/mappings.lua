@@ -3,8 +3,11 @@
 -- Set leader
 vim.g.mapleader = " "
 
--- Leader Key Easy write and quit
+-- Leader Key Easy write
 vim.keymap.set("n", "<leader>s", ":update<CR>", { noremap = true, desc = "[S]ave file", silent = true })
+
+-- Leader key easy quit
+vim.keymap.set("n", "<leader>qq", ":q<CR>", { noremap = true, desc = "[Q]uit", silent = true })
 
 -- Should be a default!
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, desc = "escape insert mode" })
@@ -39,10 +42,12 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv", {})
 vim.keymap.set("n", "N", "Nzzzv", {})
 
--- Greatest remap ever
-vim.keymap.set("x", "<leader>p", '"_dP', {})
+-- yank whole file
+vim.keymap.set("n", "<leader>yy", ":%y<CR>", {})
+-- yank whole file to system clipboard
+vim.keymap.set("n", "<leader>yY", ":%y+<CR>", {})
 
--- next greatest ever
+-- Yank to system clipboard
 vim.keymap.set("n", "<leader>y", '"+y', {})
 vim.keymap.set("v", "<leader>y", '"+y', {})
 vim.keymap.set("n", "<leader>Y", '"+Y', {})
@@ -55,3 +60,6 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", {})
 
 -- Echo Location
 vim.keymap.set("n", "<leader>pp", "<cmd>echo @%<cr>", {})
+
+-- Formatting
+vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { desc = "[F]ormat buffer" })
