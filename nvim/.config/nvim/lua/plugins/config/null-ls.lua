@@ -12,7 +12,7 @@ null_ls.setup({
 			filetypes = { "sh", "zsh" },
 		}),
 		null_ls.builtins.formatting.black.with({
-			extra_args = { "--line-length", "120" },
+			extra_args = { "--line-length", "90" },
 		}),
 		null_ls.builtins.formatting.isort.with({
 			extra_args = {
@@ -23,7 +23,7 @@ null_ls.setup({
 				"0",
 				"--use-parentheses",
 				"--line-width",
-				"120",
+				"90",
 				"--skip",
 				"generated",
 				"--skip",
