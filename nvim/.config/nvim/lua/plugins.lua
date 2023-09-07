@@ -79,8 +79,13 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- get icons for functions, etc. in LSP completion
-	use("onsails/lspkind-nvim")
+	use({
+		"nvimdev/lspsaga.nvim",
+		after = "nvim-lspconfig",
+		config = function()
+			require("lspsaga").setup({})
+		end,
+	})
 
 	-----------------
 	-----------------
@@ -267,13 +272,12 @@ return require("packer").startup(function(use)
 	-- Colorschemes --
 	------------------
 
-	-- Codeium
 	use({
-		"Exafunction/codeium.vim",
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
 		config = function()
-			vim.keymap.set("i", "<C-j>", function()
-				return vim.fn["codeium#Accept"]()
-			end, { expr = true })
+			require("plugins.config.copilot")
 		end,
 	})
 
@@ -282,23 +286,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("notify").setup({
 				background_colour = "#000000",
-			})
-		end,
-	})
-
-	-- TODO: not working perfectly right now
-	use({
-		"akinsho/git-conflict.nvim",
-		tag = "*",
-		config = function()
-			require("git-conflict").setup({
-				default_mappings = true, -- disable buffer local mapping created by this plugin
-				default_commands = true, -- disable commands created by this plugin
-				disable_diagnostics = true, -- This will disable the diagnostics in a buffer whilst it is conflicted
-				highlights = { -- They must have background color, otherwise the default color will be used
-					incoming = "DiffText",
-					current = "DiffAdd",
-				},
 			})
 		end,
 	})

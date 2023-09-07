@@ -49,7 +49,7 @@ local on_attach = function(client, bufnr)
 		vim.lsp.buf.format({
 			filter = function(format_client)
 				-- For lua, we want to use stylua so we return false for the language server
-				if format_client.name == "lua_ls" then
+				if format_client.name == "lua_ls" or format_client.name == "tsserver" then
 					return false
 				else
 					return true
@@ -96,7 +96,6 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 local luasnip = require("luasnip")
 
 -- nvim-cmp setup
--- TODO: go more into cmp setup
 local cmp = require("cmp")
 
 cmp.setup({
@@ -133,25 +132,10 @@ cmp.setup({
 			end
 		end,
 	}),
-	sources = { { name = "nvim_lsp" }, { name = "luasnip" }, { name = "orgmode" } },
-})
-
--- LSP Kind With CMP to show symbols --
-local lspkind = require("lspkind")
-
-cmp.setup({
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = "symbol_text", -- show only symbol annotations
-			maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-
-			-- The function below will be called before any actual modifications from lspkind
-			-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-			before = function(entry, vim_item)
-				-- ... customization
-				return vim_item
-			end,
-		}),
+	sources = {
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "orgmode" },
 	},
 })
 
@@ -197,6 +181,19 @@ lsp_config.bashls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	filetypes = { "sh", "zsh" },
+})
+
+lsp_config.tsserver.setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = {
+		-- disable auto formatting
+		tsserver = {
+			formatting = {
+				enabled = false,
+			},
+		},
+	},
 })
 
 -- Python

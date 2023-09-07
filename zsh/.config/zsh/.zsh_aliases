@@ -6,6 +6,7 @@ alias a='alias | fzf'
 alias fv='vim_fzf_result'
 alias cdc='common_directories' # function
 alias acd='add_to_common_dirs' # function
+alias forgot='vim ~/THINGS_YOU_WILL_FORGET'
 
 # NVIM
 alias vd="nvim ."
@@ -70,6 +71,8 @@ alias gp="git_push_account_for_tracking"
 alias gr="git_root" # function
 alias gs="git status"
 alias gsad="git stash && git stash drop"
+alias gmergemaster="git switch master && git pull && git switch - && git merge master"
+alias gmergemain="git switch main && git pull && git switch - && git merge main"
 
 # Kubernetes
 alias k="kubectl"
@@ -103,3 +106,5 @@ alias fdfe="fd . --type=file --exec"
 # scratch
 alias scratch="nvim ~/scratch"
 
+# hardhat
+alias hh="npx hardhat"
