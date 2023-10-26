@@ -205,6 +205,24 @@ local pyright_root_files_first = {
 	"pyrightconfig.json",
 }
 
+-- TODO: working on getting things to run from docker container
+-- lsp_config.pyright.setup({
+-- 	cmd = { "runpylsp", "backend_dev" },
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	settings = {
+-- 		pyright = {
+-- 			disableOrganizeImports = true,
+-- 		},
+-- 		python = {
+-- 			analysis = {
+-- 				diagnosticMode = "openFilesOnly",
+-- 				typeCheckingMode = "off",
+-- 			},
+-- 		},
+-- 	},
+-- })
+
 lsp_config.pyright.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,

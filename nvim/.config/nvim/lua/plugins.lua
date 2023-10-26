@@ -52,7 +52,7 @@ return require("packer").startup(function(use)
 			"folke/neodev.nvim",
 
 			-- Used to display Statusline from LSP in corner
-			"j-hui/fidget.nvim",
+			{ "j-hui/fidget.nvim", tag = "legacy" },
 		},
 		config = function()
 			require("plugins.config.lsp")
