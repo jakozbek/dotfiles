@@ -1,11 +1,23 @@
 #!/usr/bin/env zsh
 
+if [[ -f $HOME/.zprofile ]]; then
+    echo "WARNING:"
+    echo "You may need to remove .zprofile if it already existed (backup recommended)"
+    echo ""
+fi
+
+# Set the STOW_FOLDERS env var if not already
+# TODO: ensure working before committing
 if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="bin,nvim,tmux,z,zsh"
+    # ORIGINAL
+    # STOW_FOLDERS="bin,nvim,tmux,z,zsh"
+    STOW_FOLDERS="z,zsh"
 fi
 
+# Set the DOTFILES env var if not already
 if [[ -z $DOTFILES ]]; then
-    DOTFILES=$HOME/.dotfiles
+    DOTFILES=$HOME/dotfiles
 fi
 
+# Run the install script with the follow variables set
 STOW_FOLDERS=$STOW_FOLDERS DOTFILES=$DOTFILES $DOTFILES/install

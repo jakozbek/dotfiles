@@ -4,6 +4,8 @@ Dotfiles and configuration for development workspace and workflow
 # Dependencies
 The installation of these configuration files relies on [stow](https://github.com/aspiers/stow/).
 
+You can install most of the prereqs via the command `./install-prereqs`
+
 For installation instructions on a mac,
 please see the [documentation here](https://macappstore.org/stow/).
 

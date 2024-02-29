@@ -1,0 +1,9 @@
+# Only continue if brew is installed
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Error: brew is not installed or not in the PATH. Aborting."
+  exit 1
+fi
+
+brew list stow || brew install stow
+brew list eza || brew install eza
+brew list fzf || brew install fzf

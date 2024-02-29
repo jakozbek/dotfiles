@@ -18,9 +18,6 @@ alias ci="nvim"
 alias vim="nvim"
 alias vg="nvim .github"
 
-# cat
-alias cat="bat"
-
 # Tmux
 alias t="tmux"
 alias tn="tmux new -s"
@@ -39,14 +36,10 @@ alias edzw="vim $ZDOTDIR/.zsh_work_profile; exec zsh"
 alias sn="exec zsh"
 
 # Core Utils
-alias ls="exa -lah"
-alias l="exa -lah"
-alias lsg="exa -lah --git"
-alias lt="exa --tree"
-
-# Meta
-alias mgs="meta git status"
-alias mgb2r="meta exec \" git branch --v | awk '/\[gone\]/ {print \$1}' \" " # shows branches that will be removed by gbr
+alias ls="eza -lah"
+alias l="eza -lah"
+alias lsg="eza -lah --git"
+alias lt="eza --tree"
 
 # Cargo
 alias c="cargo"
@@ -83,10 +76,14 @@ alias kda="kubectl delete all --all"
 alias k_get_taints="kubectl get nodes -o json | jq '.items[].spec.taints' "
 
 # Docker
-alias d="docker"
-alias dc="docker-compose"
-alias remove_docker_containers="docker rm -vf $(docker ps -a -q)"
-alias remove_docker_images="docker rmi -f $(docker images -a -q)"
+# only add if docker is installed
+if command -v docker >/dev/null 2>&1; then
+  echo "HERHEHRER"
+  alias d="docker"
+  alias dc="docker-compose"
+  alias remove_docker_containers="docker rm -vf $(docker ps -a -q)"
+  alias remove_docker_images="docker rmi -f $(docker images -a -q)"
+fi
 
 # GitHub CLI
 alias ghpr='gh pr create --base main --reviewer $DEFAULT_REVIEWER --title "$(git branch --show-current): $(get_jira_issue_summary)" --body '
@@ -96,17 +93,9 @@ alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(g
 # Rust
 alias cargo_test_print='cargo test -- --nocapture' # this is mainly here so I don't forget it
 
-# Emacs
-alias org="nvim ~/my-orgs"
-
 # sed
 alias sed="gsed"
-
-# fd
-alias fdfe="fd . --type=file --exec"
 
 # scratch
 alias scratch="nvim ~/scratch"
 
-# hardhat
-alias hh="npx hardhat"
