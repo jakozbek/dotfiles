@@ -1,6 +1,5 @@
-path=(/Users/akozbek/bin /usr/local/bin /usr/bin /bin /usr/sbin /sbin)
+# For Homebrew on Apple Silicon
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Created by `pipx` on 2021-09-27 20:32:58
-export PATH="$PATH:/Users/akozbek/.local/bin"
-
+# Set ZDOTDIT to config directory
 export ZDOTDIR=$HOME/.config/zsh
