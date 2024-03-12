@@ -2,8 +2,8 @@
 
 if [[ -z $STOW_FOLDERS ]]; then
     # See MacOS install
-    #STOW_FOLDERS="bin,nvim,tmux,z,zsh"
-    STOW_FOLDERS="z,zsh"
+    #STOW_FOLDERS="bin,tmux"
+    STOW_FOLDERS="z,zsh,nvim"
 fi
 
 if [[ -z $DOTFILES ]]; then

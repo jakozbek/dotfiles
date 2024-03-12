@@ -1,7 +1,6 @@
 -- Entrypoint
 require("options")
 require("mappings")
-require("work")
 require("plugins")
 
 -- Removes whitespaces on save
@@ -25,3 +24,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Wrap on .md files --
 -----------------------
 -----------------------
+
+-- Colors
+vim.cmd.colorscheme "catppuccin"
+
