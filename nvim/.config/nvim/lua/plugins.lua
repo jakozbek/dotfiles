@@ -1,20 +1,19 @@
 -- For bootstrapping lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
-
 
 require("lazy").setup({
 
@@ -45,10 +44,6 @@ require("lazy").setup({
 
 			-- Used to display Statusline from LSP in corner
 			{ "j-hui/fidget.nvim" },
-
-			-- TODO: I don't remember what this is for, also may need to call setup?
-			--
-			"nvimdev/lspsaga.nvim",
 		},
 		config = function()
 			require("plugins.config.lsp")
@@ -60,7 +55,12 @@ require("lazy").setup({
 	-- Autocompletion
 	{
 		"hrsh7th/nvim-cmp",
-		dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"onsails/lspkind.nvim",
+		},
 	},
 
 	-- Debug Adapter Protocol
@@ -69,6 +69,7 @@ require("lazy").setup({
 		dependencies = {
 			"rcarriga/nvim-dap-ui",
 			"mfussenegger/nvim-dap-python",
+			"nvim-neotest/nvim-nio",
 		},
 		config = function()
 			require("plugins.config.dap")
@@ -235,10 +236,28 @@ require("lazy").setup({
 		end,
 	},
 
+	{
+		"Exafunction/codeium.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+		},
+		config = function()
+			require("codeium").setup({
+				virtual_text = {
+					enabled = true,
+					key_bindings = {
+						accept = "<C-j>",
+					},
+				},
+			})
+		end,
+	},
+
 	------------------
 	-- Colorschemes --
 
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 }
+	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
 	-- Colorschemes --
 	------------------

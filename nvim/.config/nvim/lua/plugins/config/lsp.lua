@@ -49,7 +49,7 @@ local on_attach = function(client, bufnr)
 		vim.lsp.buf.format({
 			filter = function(format_client)
 				-- For lua, we want to use stylua so we return false for the language server
-				if format_client.name == "lua_ls" or format_client.name == "tsserver" then
+				if format_client.name == "lua_ls" or format_client.name == "tsserver" or format_client == "htmlls" then
 					return false
 				else
 					return true
@@ -97,6 +97,7 @@ local luasnip = require("luasnip")
 
 -- nvim-cmp setup
 local cmp = require("cmp")
+local lspkind = require("lspkind")
 
 cmp.setup({
 	snippet = {
@@ -104,8 +105,24 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    formatting = {
+        format = lspkind.cmp_format({
+            mode = "symbol_text",
+            menu = {
+                buffer = "[buf]",
+                nvim_lsp = "[LSP]",
+                luasnip = "[snip]",
+                nvim_lua = "[lua]",
+                latex_symbols = "[latex]",
+            },
+        }),
+    },
 	mapping = cmp.mapping.preset.insert({
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.abort(),
@@ -135,7 +152,6 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
-		{ name = "orgmode" },
 	},
 })
 
@@ -148,96 +164,55 @@ cmp.setup({
 ----------------------
 
 -- This order must be followed: mason, mason-lspconfig, lspconfig
+-- TODO: what else should be installed?
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = { "lua_ls", "rust_analyzer" },
 })
 
--- Rust Analyzer
-local lsp_config = require("lspconfig")
-
-lsp_config.rust_analyzer.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		["rust-analyzer"] = {
-			cargo = { features = "all" },
-			checkOnSave = { command = "clippy" },
-			rustfmt = {
-				extraArgs = { "+nightly" },
-			},
-		},
-	},
-})
-
--- Lua
-lsp_config.lua_ls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
-
--- Bash
-lsp_config.bashls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	filetypes = { "sh", "zsh" },
-})
-
-lsp_config.tsserver.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	settings = {
-		-- disable auto formatting
-		tsserver = {
-			formatting = {
-				enabled = false,
-			},
-		},
-	},
-})
-
--- Python
-local util = require("lspconfig.util")
-
--- TODO: still learning how much I need to use these
-local pyright_root_files_first = {
-	"pyproject.toml",
-	"pyrightconfig.json",
+require("mason-lspconfig").setup_handlers {
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {
+            on_attach = on_attach,
+            capabilities = capabilities
+        }
+    end,
+    -- Next, you can provide a dedicated handler for specific servers.
+    -- For example, a handler override for the `rust_analyzer`:
+    ["rust_analyzer"] = function ()
+        -- TODO: do I also do the on attach and capabilities here?
+        require("lspconfig").rust_analyzer.setup({
+            settings = {
+                ["rust-analyzer"] = {
+                    cargo = { features = "all" },
+                    checkOnSave = { command = "clippy" },
+                    rustfmt = {
+                        extraArgs = { "+nightly" },
+                    },
+                },
+            },
+        })
+    end,
+    ["bashls"] = function ()
+        require("lspconfig").bashls.setup({
+	        filetypes = { "sh", "zsh" },
+        })
+    end
 }
 
--- TODO: working on getting things to run from docker container
--- lsp_config.pyright.setup({
--- 	cmd = { "runpylsp", "backend_dev" },
+-- Lua
+-- lsp_config.lua_ls.setup({
 -- 	on_attach = on_attach,
 -- 	capabilities = capabilities,
--- 	settings = {
--- 		pyright = {
--- 			disableOrganizeImports = true,
--- 		},
--- 		python = {
--- 			analysis = {
--- 				diagnosticMode = "openFilesOnly",
--- 				typeCheckingMode = "off",
--- 			},
--- 		},
--- 	},
 -- })
 
-lsp_config.pyright.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	flags = { debounce_text_changes = 300 },
-	-- root_dir = util.root_pattern(unpack(pyright_root_files_first)),
-	-- settings map to those found in: [pyright/docs/settings.md](https://github.com/microsoft/pyright/blob/main/docs/settings.md)
-	settings = {
-		pyright = {
-			disableOrganizeImports = true,
-		},
-		python = {
-			analysis = {
-				diagnosticMode = "openFilesOnly",
-				typeCheckingMode = "off",
-			},
-		},
-	},
-})
+-- Bash
+-- lsp_config.bashls.setup({
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- 	filetypes = { "sh", "zsh" },
+-- })
+
