@@ -8,9 +8,13 @@ vim.keymap.set("n", "<leader>s", ":update<CR>", { noremap = true, desc = "[S]ave
 
 -- Leader key easy quit
 vim.keymap.set("n", "<leader>qq", ":q<CR>", { noremap = true, desc = "[Q]uit", silent = true })
+vim.keymap.set("n", "<leader>qa", ":qa<CR>", { noremap = true, desc = "[Q]uit [A]ll", silent = true })
 
 -- Should be a default!
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, desc = "escape insert mode" })
+
+-- Replace text under cursor
+vim.keymap.set("n", "<leader>rr", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", {})
 
 -- Vim Fugitive
 vim.keymap.set("n", "<leader>gs", ":G<CR>:only<CR>", { desc = "[G]it [S]tatus" })
@@ -62,4 +66,7 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", {})
 vim.keymap.set("n", "<leader>pp", "<cmd>echo @%<cr>", {})
 
 -- Formatting
-vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, { desc = "[F]ormat buffer" })
+vim.keymap.set("n", "<leader>F", "<cmd>Format<cr>", { desc = "[F]ormat buffer" })
+
+-- Copilot
+vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChatToggle<cr>", { desc = "[C]opilot [C]hat toggle" })

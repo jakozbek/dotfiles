@@ -6,10 +6,10 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Only tab 4 (8 is default)
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 -- Number of spaces for autoindent
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 -- Use appropriate number of spaces from insert mode
 vim.opt.expandtab = true
 -- Smart indent when starting new lines

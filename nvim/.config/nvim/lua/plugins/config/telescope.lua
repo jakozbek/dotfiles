@@ -59,8 +59,13 @@ local grep_not_test_files = function()
 	builtin.live_grep({ glog_pattern = "!*test*" })
 end
 
+local find_ignored_files = function()
+  builtin.find_files({ no_ignore = true })
+end
+
 vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ][ ] Find existing buffers" })
 vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[F]ind [F]iles" })
+vim.keymap.set("n", "<leader>fi", find_ignored_files, { desc = "[F]ind [I]gnored files" })
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[F]ind with [G]rep" })
 vim.keymap.set("n", "<leader>fnt", grep_not_test_files, { desc = "[F]ind [n]ot [t]est" })
 
