@@ -31,3 +31,9 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
 # For incremental search
 bindkey '^R' history-incremental-search-backward
+
+# For completions
+autoload -Uz compinit && compinit
+
+# Load starship
+eval "$(starship init zsh)"
