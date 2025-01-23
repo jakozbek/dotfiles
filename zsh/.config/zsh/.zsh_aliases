@@ -21,7 +21,6 @@ alias vg="nvim .github"
 # Tmux
 alias t="tmux"
 alias tn="tmux new -s"
-alias show_ts="cat ~/.dotfiles/tmux/.tmux-work.conf"
 alias mux="tmuxinator"
 
 # Directories & Navigation
@@ -93,9 +92,13 @@ alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(g
 # Rust
 alias cargo_test_print='cargo test -- --nocapture' # this is mainly here so I don't forget it
 
-# sed
-alias sed="gsed"
-
 # scratch
 alias scratch="nvim ~/scratch"
 
+# Python
+alias p="python3"
+
+# Data scripts
+alias gd="./get_data_by_json.py"
+alias gt="./get_taxon_id.py"
+alias pl="./notebook_plot.py"

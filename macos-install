@@ -10,8 +10,8 @@ fi
 # TODO: ensure working before committing
 if [[ -z $STOW_FOLDERS ]]; then
     # ORIGINAL
-    # STOW_FOLDERS="bin,tmux"
-    STOW_FOLDERS="z,zsh, nvim"
+    # STOW_FOLDERS="bin"
+    STOW_FOLDERS="z,zsh,nvim,tmux"
 fi
 
 # Set the DOTFILES env var if not already

@@ -9,6 +9,9 @@ You can install most of the prereqs via the command `./install-prereqs`
 For installation instructions on a mac,
 please see the [documentation here](https://macappstore.org/stow/).
 
+## Things you will need for complete nvim support
+* npm - `brew install node`
+
 # Contents
 This repo contains configuration for my workflows in:
 * nvim

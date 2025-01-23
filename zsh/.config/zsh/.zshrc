@@ -16,7 +16,6 @@ export EDITOR="nvim"
 
 # Additonal files
 zsh_add_file .zsh_aliases
-zsh_add_file .zsh_work_profile
 
 # PLUGINS
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
@@ -24,6 +23,11 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 #zsh_add_plugin "jeffreytse/zsh-vi-mode"
 #zsh_add_plugin "Aloxaf/fzf-tab"
 
+# For zoxide
+eval "$(zoxide init zsh)"
+
 # For zsh-vi-mode
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 
+# For incremental search
+bindkey '^R' history-incremental-search-backward
