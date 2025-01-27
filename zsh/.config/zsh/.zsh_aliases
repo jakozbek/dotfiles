@@ -77,7 +77,6 @@ alias k_get_taints="kubectl get nodes -o json | jq '.items[].spec.taints' "
 # Docker
 # only add if docker is installed
 if command -v docker >/dev/null 2>&1; then
-  echo "HERHEHRER"
   alias d="docker"
   alias dc="docker-compose"
   alias remove_docker_containers="docker rm -vf $(docker ps -a -q)"
