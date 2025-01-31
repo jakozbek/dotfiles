@@ -21,16 +21,6 @@ require("lazy").setup({
 	-----------------
 	-----------------
 
-	-- Should be called before lsp
-	-- Null-ls --
-	-- TODO: may need this at some point -> https://github.com/jay-babu/mason-null-ls.nvim
-	-- {
-	--     "jose-elias-alvarez/null-ls.nvim",
-	--     config = function()
-	--         require("plugins.config.null-ls")
-	--     end,
-	-- },
-
 	-- Formatter
 	{
 		"mhartington/formatter.nvim",
@@ -48,7 +38,6 @@ require("lazy").setup({
 				typescriptreact = { "eslint_d" },
 				javascript = { "eslint_d" },
 				javascriptreact = { "eslint_d" },
-				lua = { "luacheck" },
 				python = { "flake8" },
 				rust = { "cargo" },
 				sh = { "shellcheck" },

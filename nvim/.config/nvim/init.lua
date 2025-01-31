@@ -23,14 +23,14 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = "copilot-*",
 	callback = function()
-		vim.opt.completeopt = vim.opt.completeopt + "noinsert" + "noselect"
+		vim.opt.completeopt = vim.opt.completeopt + "noinsert" + "noselect" + "menu" + "menuone" + "popup"
 	end,
 })
 
 vim.api.nvim_create_autocmd("BufLeave", {
 	pattern = "copilot-*",
 	callback = function()
-		vim.opt.completeopt = vim.opt.completeopt - "noinsert" - "noselect"
+		vim.opt.completeopt = vim.opt.completeopt - "noinsert" - "noselect" - "menu" - "menuone" - "popup"
 	end,
 })
 
