@@ -305,6 +305,13 @@ require("lazy").setup({
 			require("CopilotChat").setup({
 				model = "claude-3.5-sonnet",
 				chat_autocomplete = true,
+				-- remap the reset to not be C-l
+				mappings = {
+					reset = {
+						normal = "<C-r>",
+						insert = "<C-r>",
+					},
+				},
 			})
 		end,
 	},
@@ -317,12 +324,12 @@ require("lazy").setup({
 	-- Colorschemes --
 	------------------
 
-	-- {
-	-- 	"rcarriga/nvim-notify",
-	-- 	config = function()
-	-- 		require("notify").setup({
-	-- 			background_colour = "#000000",
-	-- 		})
-	-- 	end,
-	-- }
+	-- Lualine
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("lualine").setup()
+		end,
+	},
 })
