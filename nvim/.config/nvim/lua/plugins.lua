@@ -307,31 +307,31 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"CopilotC-Nvim/CopilotChat.nvim",
-		dependencies = {
-			{ "zbirenbaum/copilot.lua" }, -- or zbirenbaum/copilot.lua
-			{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-		},
-		build = "make tiktoken", -- Only on MacOS or Linux
-		opts = {},
-		config = function()
-			require("CopilotChat").setup({
-				model = "gpt-4.1",
-				chat_autocomplete = true,
-				sticky = {
-					"#buffers",
-				},
-				-- remap the reset to not be C-l
-				mappings = {
-					reset = {
-						normal = "<M-r>",
-						insert = "<M-r>",
-					},
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"CopilotC-Nvim/CopilotChat.nvim",
+	-- 	dependencies = {
+	-- 		{ "zbirenbaum/copilot.lua" }, -- or zbirenbaum/copilot.lua
+	-- 		{ "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+	-- 	},
+	-- 	build = "make tiktoken", -- Only on MacOS or Linux
+	-- 	opts = {},
+	-- 	config = function()
+	-- 		require("CopilotChat").setup({
+	-- 			model = "gpt-4.1",
+	-- 			chat_autocomplete = true,
+	-- 			sticky = {
+	-- 				"#buffers",
+	-- 			},
+	-- 			-- remap the reset to not be C-l
+	-- 			mappings = {
+	-- 				reset = {
+	-- 					normal = "<M-r>",
+	-- 					insert = "<M-r>",
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	------------------
 	-- Colorschemes --
@@ -383,6 +383,55 @@ require("lazy").setup({
 			"RainbowDelimSimple",
 			"RainbowDelimQuoted",
 			"RainbowMultiDelim",
+		},
+	},
+	{
+		"olimorris/codecompanion.nvim", -- The KING of AI programming
+		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions" },
+		dependencies = {
+			"j-hui/fidget.nvim", -- Display status
+		},
+		lazy = false,
+		keys = {
+			{
+				"<Leader>cc",
+				"<cmd>CodeCompanionChat Toggle<CR>",
+				desc = "Toggle a chat buffer",
+				mode = { "n", "v" },
+			},
+			{
+				"<Leader>aa",
+				"<cmd>CodeCompanionActions<CR>",
+				desc = "Open the action palette",
+				mode = { "n", "v" },
+			},
+		},
+		opts = {
+			strategies = {
+				chat = {
+					adapter = "anthropic",
+				},
+				inline = {
+					adapter = "anthropic",
+				},
+			},
+			adapters = {
+				anthropic = function()
+					return require("codecompanion.adapters").extend("anthropic", {
+						env = {
+							api_key = "cmd:op read op://private/claude-api/key --no-newline",
+						},
+						schema = {
+							extended_thinking = {
+								default = true,
+							},
+							model = {
+								default = "clade-sonnet-4",
+							},
+						},
+					})
+				end,
+			},
 		},
 	},
 })
