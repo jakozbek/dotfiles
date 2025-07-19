@@ -19,18 +19,29 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 	command = ":FormatWrite",
 })
 
--- For CopilotChat using nvim 0.10.X
+-- For smooth autocomplete with CopilotChat
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = "copilot-*",
 	callback = function()
-		vim.opt.completeopt = vim.opt.completeopt + "noinsert" + "noselect" + "menu" + "menuone" + "popup"
+		vim.opt.completeopt = vim.opt.completeopt + "popup"
 	end,
 })
 
 vim.api.nvim_create_autocmd("BufLeave", {
 	pattern = "copilot-*",
 	callback = function()
-		vim.opt.completeopt = vim.opt.completeopt - "noinsert" - "noselect" - "menu" - "menuone" - "popup"
+		vim.opt.completeopt = vim.opt.completeopt - "popup"
+	end,
+})
+
+vim.diagnostic.config({ virtual_text = true })
+
+-- Enable spell checking for JSON files
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "json",
+	callback = function()
+		vim.opt_local.spell = true
+		vim.opt_local.spelllang = "en_us"
 	end,
 })
 
@@ -47,6 +58,3 @@ vim.api.nvim_create_autocmd("BufEnter", {
 -- Wrap on .md files --
 -----------------------
 -----------------------
-
--- Colors
-vim.cmd.colorscheme("catppuccin")
