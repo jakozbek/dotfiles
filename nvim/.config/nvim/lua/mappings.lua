@@ -22,6 +22,10 @@ vim.keymap.set("n", "<leader>gp", ":Git push<CR>", { desc = "[G]it [P]ush" })
 vim.keymap.set("n", "<leader>gf", ":diffget //2<CR>", {})
 vim.keymap.set("n", "<leader>gh", ":diffget //3<CR>", {})
 
+-- Diffview
+vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "[G]it [D]iff" })
+vim.keymap.set("n", "<leader>gq", ":DiffviewClose<CR>", { desc = "[G]it [Q]uit Diff" })
+
 -- Trouble
 vim.keymap.set("n", "<leader>tt", "<cmd>TroubleToggle<CR>", {})
 

@@ -31,6 +31,8 @@ require("formatter").setup({
 		python = { require("formatter.filetypes.python").black },
     -- json
     json = { require("formatter.filetypes.json").jq() },
+    -- bash
+    bash = { require("formatter.filetypes.sh").shfmt },
 	},
 })
 

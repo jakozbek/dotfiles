@@ -60,7 +60,7 @@ local grep_not_test_files = function()
 end
 
 local find_ignored_files = function()
-  builtin.find_files({ no_ignore = true })
+	builtin.find_files({ no_ignore = true })
 end
 
 vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "[ ][ ] Find existing buffers" })
@@ -76,3 +76,4 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[F]ind [H]elp tag
 vim.keymap.set("n", "<leader>fp", builtin.planets, { desc = "[F]ind [P]lanets (use the telescope!)" })
 vim.keymap.set("n", "<leader>fc", find_config_files, { desc = "[F]ind [C]onfig" })
 vim.keymap.set("n", "<leader>fo", find_org_files, { desc = "[F]ind j[O]rg mode" })
+vim.keymap.set("n", "<leader>fC", builtin.colorscheme, { desc = "[F]ind [C]olorschemes" })

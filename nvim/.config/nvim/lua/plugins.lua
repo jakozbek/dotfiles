@@ -46,8 +46,8 @@ require("lazy").setup({
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
 					-- try_lint without arguments runs the linters defined in `linters_by_ft`
-					-- for the current filetype
-					require("lint").try_lint()
+					-- for the current filetype, call safely
+					pcall(require("lint").try_lint)
 				end,
 			})
 		end,
@@ -225,6 +225,7 @@ require("lazy").setup({
 
 	-- Git
 	"tpope/vim-fugitive",
+	"sindrets/diffview.nvim",
 
 	-- File Searching
 	{
@@ -235,6 +236,19 @@ require("lazy").setup({
 		},
 		config = function()
 			require("plugins.config.telescope")
+		end,
+	},
+	{
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		-- or if using mini.icons/mini.nvim
+		-- dependencies = { "echasnovski/mini.icons" },
+		opts = {},
+		config = function()
+			require("fzf-lua").setup({ "telescope", winopts = { preview = { default = "bat" } } })
+			-- Register the ui_select function to use fzf-lua for selecting items
+			require("fzf-lua").register_ui_select()
 		end,
 	},
 
@@ -303,13 +317,16 @@ require("lazy").setup({
 		opts = {},
 		config = function()
 			require("CopilotChat").setup({
-				model = "claude-3.5-sonnet",
+				model = "gpt-4.1",
 				chat_autocomplete = true,
+				sticky = {
+					"#buffers",
+				},
 				-- remap the reset to not be C-l
 				mappings = {
 					reset = {
-						normal = "<C-r>",
-						insert = "<C-r>",
+						normal = "<M-r>",
+						insert = "<M-r>",
 					},
 				},
 			})
@@ -319,7 +336,15 @@ require("lazy").setup({
 	------------------
 	-- Colorschemes --
 
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+	{ "catppuccin/nvim", name = "catppuccin" },
+	{
+		"rebelot/kanagawa.nvim",
+		config = function()
+			vim.cmd.colorscheme("kanagawa")
+		end,
+	},
+	{ "rose-pine/neovim", name = "rose-pine" },
+	{ "EdenEast/nightfox.nvim" },
 
 	-- Colorschemes --
 	------------------
@@ -331,5 +356,33 @@ require("lazy").setup({
 		config = function()
 			require("lualine").setup()
 		end,
+	},
+
+	-- CSV Support
+	-- {
+	-- 	"chrisbra/csv.vim",
+	-- 	ft = { "csv" },
+	-- 	config = function()
+	-- 		vim.g.csv_no_conceal = 1
+	-- 	end,
+	-- },
+	{
+		"cameron-wags/rainbow_csv.nvim",
+		config = true,
+		ft = {
+			"csv",
+			"tsv",
+			"csv_semicolon",
+			"csv_whitespace",
+			"csv_pipe",
+			"rfc_csv",
+			"rfc_semicolon",
+		},
+		cmd = {
+			"RainbowDelim",
+			"RainbowDelimSimple",
+			"RainbowDelimQuoted",
+			"RainbowMultiDelim",
+		},
 	},
 })

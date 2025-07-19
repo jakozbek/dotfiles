@@ -164,55 +164,27 @@ cmp.setup({
 -- Language Servers --
 ----------------------
 
--- This order must be followed: mason, mason-lspconfig, lspconfig
+vim.lsp.config("rust_analyzer", {
+	settings = {
+		["rust-analyzer"] = {
+			cargo = { features = "all" },
+			checkOnSave = { command = "clippy" },
+			rustfmt = {
+				extraArgs = { "+nightly" },
+			},
+		},
+	},
+})
+
+vim.lsp.config("bashls", {
+	require("lspconfig").bashls.setup({
+		filetypes = { "sh", "zsh" },
+	}),
+})
+--
+-- This order must be followed: mason, mason-lspconfig
 -- TODO: what else should be installed?
 require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = { "lua_ls", "rust_analyzer" },
 })
-
-require("mason-lspconfig").setup_handlers({
-	-- The first entry (without a key) will be the default handler
-	-- and will be called for each installed server that doesn't have
-	-- a dedicated handler.
-	function(server_name) -- default handler (optional)
-		require("lspconfig")[server_name].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
-	end,
-	-- Next, you can provide a dedicated handler for specific servers.
-	-- For example, a handler override for the `rust_analyzer`:
-	["rust_analyzer"] = function()
-		-- TODO: do I also do the on attach and capabilities here?
-		require("lspconfig").rust_analyzer.setup({
-			settings = {
-				["rust-analyzer"] = {
-					cargo = { features = "all" },
-					checkOnSave = { command = "clippy" },
-					rustfmt = {
-						extraArgs = { "+nightly" },
-					},
-				},
-			},
-		})
-	end,
-	["bashls"] = function()
-		require("lspconfig").bashls.setup({
-			filetypes = { "sh", "zsh" },
-		})
-	end,
-})
-
--- Lua
--- lsp_config.lua_ls.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- })
-
--- Bash
--- lsp_config.bashls.setup({
--- 	on_attach = on_attach,
--- 	capabilities = capabilities,
--- 	filetypes = { "sh", "zsh" },
--- })

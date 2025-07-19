@@ -8,15 +8,16 @@ require("nvim-treesitter.configs").setup({
 		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
 		-- Using this option may slow down your editor, and you may see some duplicate highlights.
 		-- Instead of true it can also be a list of languages
-		additional_vim_regex_highlighting = { "org" },
+		additional_vim_regex_highlighting = { "org", "markdown", "gitcommit", "json" },
+		disable = { "csv" },
 	},
 	incremental_selection = {
 		enable = true,
 		keymaps = {
-			init_selection = "<c-space>",
-			node_incremental = "<c-space>",
-			scope_incremental = "<c-s>",
-			node_decremental = "<c-backspace>",
+			init_selection = "<C-space>",
+			node_incremental = "<C-space>",
+			scope_incremental = false,
+			node_decremental = "<bs>",
 		},
 	},
 	-- TODO: look at the move table for treesitter
