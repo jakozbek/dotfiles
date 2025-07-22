@@ -72,5 +72,3 @@ vim.keymap.set("n", "<leader>pp", "<cmd>echo @%<cr>", {})
 -- Formatting
 vim.keymap.set("n", "<leader>F", "<cmd>Format<cr>", { desc = "[F]ormat buffer" })
 
--- Copilot
-vim.keymap.set("n", "<leader>cc", "<cmd>CopilotChatToggle<cr>", { desc = "[C]opilot [C]hat toggle" })

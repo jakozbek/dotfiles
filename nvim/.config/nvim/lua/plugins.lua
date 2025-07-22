@@ -415,23 +415,6 @@ require("lazy").setup({
 					adapter = "anthropic",
 				},
 			},
-			adapters = {
-				anthropic = function()
-					return require("codecompanion.adapters").extend("anthropic", {
-						env = {
-							api_key = "cmd:op read op://private/claude-api/key --no-newline",
-						},
-						schema = {
-							extended_thinking = {
-								default = true,
-							},
-							model = {
-								default = "clade-sonnet-4",
-							},
-						},
-					})
-				end,
-			},
 		},
 	},
 })
