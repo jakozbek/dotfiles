@@ -1,0 +1,5 @@
+# Font configuration
+font-size = 16
+
+# Theme
+theme = Catppuccin Mocha

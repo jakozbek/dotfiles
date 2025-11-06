@@ -11,7 +11,7 @@ fi
 if [[ -z $STOW_FOLDERS ]]; then
     # ORIGINAL
     # STOW_FOLDERS="bin"
-    STOW_FOLDERS="z,zsh,nvim,tmux"
+    STOW_FOLDERS="z,zsh,nvim,tmux,ghostty"
 fi
 
 # Set the DOTFILES env var if not already
