@@ -1,6 +1,14 @@
 *work*
 *packer_compiled.lua
-.zcompdump
-.zsh_history
 zsh/.config/zsh/plugins/
 .zsh_sessions
+.zsh_private
+
+# Ignore system files
+.DS_Store
+.zcompdump
+.zsh_history
+*.log
+.zcompcache
+.zshenv
+*.spl
