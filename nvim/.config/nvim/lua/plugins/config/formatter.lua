@@ -15,8 +15,8 @@ require("formatter").setup({
 		},
 		typescript = { require("formatter.filetypes.typescript").prettier },
 		typescriptreact = { require("formatter.filetypes.typescript").prettier },
-    javascript = { require("formatter.filetypes.javascript").prettier },
-    javascriptreact = { require("formatter.filetypes.javascript").prettier },
+		javascript = { require("formatter.filetypes.javascript").prettier },
+		javascriptreact = { require("formatter.filetypes.javascript").prettier },
 
 		-- Use the special "*" filetype for defining formatter configurations on
 		-- any filetype
@@ -29,11 +29,9 @@ require("formatter").setup({
 		},
 		-- python
 		python = { require("formatter.filetypes.python").black },
-    -- json
-    json = { require("formatter.filetypes.json").jq() },
-    -- bash
-    bash = { require("formatter.filetypes.sh").shfmt },
+		-- json
+		json = { require("formatter.filetypes.json").fixjson },
+		-- bash
+		bash = { require("formatter.filetypes.sh").shfmt },
 	},
 })
-
-

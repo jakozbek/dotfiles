@@ -303,6 +303,10 @@ require("lazy").setup({
 						accept = "<C-j>",
 					},
 				},
+				panel = { enabled = false },
+				filetypes = {
+					["*"] = true,
+				},
 			})
 		end,
 	},
@@ -317,10 +321,10 @@ require("lazy").setup({
 		opts = {},
 		config = function()
 			require("CopilotChat").setup({
-				model = "gpt-4.1",
+				model = "claude-sonnet-4.5",
 				chat_autocomplete = true,
 				sticky = {
-					"#buffers",
+					"#buffer:listed",
 				},
 				-- remap the reset to not be C-l
 				mappings = {
@@ -337,13 +341,14 @@ require("lazy").setup({
 	-- Colorschemes --
 
 	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "rebelot/kanagawa.nvim" },
 	{
-		"rebelot/kanagawa.nvim",
+		"rose-pine/neovim",
+		name = "rose-pine",
 		config = function()
-			vim.cmd.colorscheme("kanagawa")
+			vim.cmd("colorscheme rose-pine")
 		end,
 	},
-	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "EdenEast/nightfox.nvim" },
 
 	-- Colorschemes --
