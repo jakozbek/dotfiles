@@ -3,3 +3,7 @@ font-size = 16
 
 # Theme
 theme = Catppuccin Mocha
+
+title = " "
+macos-titlebar-style = transparent
+macos-titlebar-proxy-icon = hidden
