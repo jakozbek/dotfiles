@@ -3,6 +3,9 @@ require("options")
 require("mappings")
 require("plugins")
 
+-- Set color scheme
+vim.cmd("colorscheme catppuccin-mocha")
+
 -- Formatting autocommands
 local file_writes_group = vim.api.nvim_create_augroup("File Writes", { clear = true })
 

@@ -342,13 +342,7 @@ require("lazy").setup({
 
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "rebelot/kanagawa.nvim" },
-	{
-		"rose-pine/neovim",
-		name = "rose-pine",
-		config = function()
-			vim.cmd("colorscheme rose-pine")
-		end,
-	},
+	{ "rose-pine/neovim", name = "rose-pine" },
 	{ "EdenEast/nightfox.nvim" },
 
 	-- Colorschemes --
