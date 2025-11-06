@@ -72,3 +72,7 @@ fpath=(/Users/jesse/.docker/completions "${fpath[@]}")
 # End of Docker CLI completions
 
 #zprof
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
