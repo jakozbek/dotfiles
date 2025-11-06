@@ -1,3 +1,6 @@
+# Uncomment the following line to enable profiling of zsh startup
+#zmodload zsh/zprof
+
 ## OPTIONS
 setopt auto_cd
 
@@ -31,8 +34,14 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
 # For incremental search
 bindkey '^R' history-incremental-search-backward
 
-# For completions
-autoload -Uz compinit && compinit
+# For completions (with caching for faster startup)
+autoload -Uz compinit
+# Only regenerate compdump once per day
+if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
+  compinit
+else
+  compinit -C
+fi
 
 # ensure "python3" command uses homebrew's version of python3
 alias python3=/opt/homebrew/bin/python3
@@ -58,7 +67,8 @@ esac
 # pnpm end
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/jesse/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+fpath=(/Users/jesse/.docker/completions "${fpath[@]}")
+# compinit called above
 # End of Docker CLI completions
+
+#zprof

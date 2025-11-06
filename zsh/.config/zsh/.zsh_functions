@@ -1,12 +1,5 @@
 #!/bin/zsh
 
-# Performance testing
-# From https://blog.mattclemente.com/2020/06/26/oh-my-zsh-slow-to-load/
-timezsh() {
-  shell=${1-$SHELL}
-  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
-}
-
 # Functions
 git_push_account_for_tracking = function() {
     tracking=$(git status -sb | grep origin/)
@@ -17,34 +10,6 @@ git_push_account_for_tracking = function() {
         git push
     fi
 }
-
-alias ghpr='gh pr create --base main --reviewer $DEFAULT_REVIEWER --title "$(git branch --show-current): $(get_jira_issue_summary)" --body '
-alias ghprr='gh pr edit --add-reviewer $DEFAULT_REVIEWER && gh pr ready'
-# alias ghprd='gh pr create --base main --title "$(git branch --show-current): $(get_jira_issue_summary)" --draft --body "draft"'
-
-git_pr_draft = function() {
-    # Print usage if incorrect number of arguments
-    if [[ $# -ne 1 ]]; then
-        echo "Usage: git_pr_draft <base_branch>"
-        return
-    fi
-
-    gh pr create \
-        --base $1 \
-        --reviewer $DEFAULT_REVIEWER \
-        --title "$(git branch --show-current): $(get_jira_issue_summary)" \
-        --draft --body "draft"
-}
-
-get_jira_issue_summary = function() {
-    jira issue list --plain --columns key,summary > temp_jira_issues;
-
-    echo $(cat temp_jira_issues | rg $(git branch --show-current) | cut -f2)
-
-    rm temp_jira_issues
-}
-
-# FZF
 
 # Fuzzy search for files to open in vim or return if escape is pressed
 # source:https://stackoverflow.com/a/65375231/2571881
@@ -62,15 +27,6 @@ function change_branch_fzf() {
     )
 
     git switch $choice
-}
-
-function common_directories() {
-    dir=$(cat ~/.common_directories | fzf) || return
-    cd $dir
-}
-
-function add_to_common_dirs() {
-    echo $PWD >> ~/.common_directories
 }
 
 # gets the column of the argument passed in
@@ -123,52 +79,4 @@ function zsh_add_completion() {
     fi
     completion_file="$(basename "${completion_file_path}")"
     if [ "$2" = true ] && compinit "${completion_file:1}"
-}
-
-## k8s namespaces
-# funciton to poll existing namespaces and set the in the kubectl context
-function k_set_namespace() {
-    possible_namespaces=$(kubectl get ns | awk '{print $1}' | tail -n +2)
-    # help message if no arguments are passed
-    # shows possible namespaces
-    if [[ $@ == "--help" || $@ = "-h" || $# -ne 1 ]]; then
-        echo "Usage: k_set_namespace <namespace_position>\n"
-        echo "Namespace Postition required:\n"
-        echo "Select a namespace from the following list:"
-
-        count=1
-        for namespace in $(echo $possible_namespaces); do
-            echo "$count: $namespace"
-            count=$((count+1))
-        done
-
-        echo "\n"
-
-        return
-    fi
-
-    # the first input is the position of the namespace in the possible_namespaces list
-    namespace_position=$1
-
-    # check that input is a number
-    if ! [[ $namespace_position =~ ^[0-9]+$ ]]; then
-        echo "Error: namespace position must be a number\n"
-        echo "Run with --help to see usage"
-        return
-    fi
-
-    # get possible namespaces
-    # tail -n +2 skips the first line which is the header, NAME
-    namespace=$( echo $possible_namespaces | sed -n "$namespace_position p")
-
-    # check if namespace is empty
-    if [[ -z $namespace ]]; then
-        echo "Error: namespace position is out of range\n"
-        echo "Run with --help to see namespaces and select a namespace that is in range"
-        return
-    fi
-
-    # set the namespace
-    echo "Setting kubectl context to namespace: $namespace"
-    kubectl config set-context --current --namespace=$namespace
 }
