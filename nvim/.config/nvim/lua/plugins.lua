@@ -17,6 +17,33 @@ vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
 require("lazy").setup({
 
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			bigfile = { enabled = true },
+			dashboard = { enabled = true },
+			indent = { enabled = true },
+			input = { enabled = true },
+			lazygit = { enabled = true },
+			picker = { enabled = true },
+			notifier = { enabled = true },
+			quickfile = { enabled = true },
+			scope = { enabled = true },
+			words = { enabled = true },
+		},
+		keys = {
+			{
+				"<leader>lg",
+				function()
+					Snacks.lazygit()
+				end,
+			},
+		},
+	},
+
 	-- LSP Related --
 	-----------------
 	-----------------

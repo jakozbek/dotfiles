@@ -38,12 +38,6 @@ vim.keymap.set("n", "<leader>Gp", ":Gitsigns preview_hunk<CR>", {})
 vim.keymap.set("n", "<leader>Gd", ":Gitsigns diffthis<CR>", {})
 vim.keymap.set("n", "<leader>Gs", ":Gitsigns stage_buffer<CR>", {})
 
--- Edit vimr configuration file
-vim.keymap.set("n", "<Leader>ve", ":e $MYVIMRC<CR>", {})
-
--- Reload vimr configuration file
-vim.keymap.set("n", "<Leader>vr", ":source $MYVIMRC<CR>", {})
-
 -- Movement
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
