@@ -1,5 +1,18 @@
 # Uncomment the following line to enable profiling of zsh startup
-#zmodload zsh/zprof
+# zmodload zsh/zprof
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 ## OPTIONS
 setopt auto_cd
@@ -18,7 +31,8 @@ source $ZDOTDIR/.zsh_private
 export EDITOR="nvim"
 
 # Additonal files
-zsh_add_file .zsh_aliases
+zinit ice wait lucid
+zinit snippet $ZDOTDIR/.zsh_aliases
 
 # PLUGINS
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
@@ -26,7 +40,9 @@ zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 
 
 # For zoxide
-eval "$(zoxide init zsh)"
+zinit ice wait lucid as"program" from"gh-r" pick"zoxide" \
+  atload'eval "$(zoxide init zsh)"'
+zinit light ajeetdsouza/zoxide
 
 # For zsh-vi-mode
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jj
@@ -36,6 +52,7 @@ bindkey '^R' history-incremental-search-backward
 
 # For completions (with caching for faster startup)
 autoload -Uz compinit
+
 # Only regenerate compdump once per day
 if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)" ]; then
   compinit
@@ -71,8 +88,8 @@ fpath=(/Users/jesse/.docker/completions "${fpath[@]}")
 # compinit called above
 # End of Docker CLI completions
 
-#zprof
-
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
+
+# zprof
