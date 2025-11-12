@@ -38,10 +38,8 @@ vim.opt.scrolloff = 8
 -- Update faster
 vim.opt.updatetime = 250
 
--- Column to indicate line length
-vim.opt.colorcolumn = "100"
-
 -- Splits below for vertical splits
 vim.opt.splitbelow = true
+
 -- Splits above for horizontal splits
 vim.opt.splitright = true
